@@ -28,4 +28,9 @@ public class FieldInjectionTest {
         Assert.assertEquals(category, newIdea.getCategory());
         Assert.assertEquals(description, newIdea.getDescription());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidIdeaCreation() {
+        this.ideaManager.createIdeaFor(null, null);
+    }
 }
