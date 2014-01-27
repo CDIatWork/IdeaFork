@@ -1,9 +1,15 @@
 package at.irian.cdiatwork.ideafork.backend.api.domain.idea;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+@ApplicationScoped
 public class IdeaManager {
-    private final IdeaValidator ideaValidator;
+    private IdeaValidator ideaValidator;
+
+    protected IdeaManager() {
+        //needed by proxy-libs
+    }
 
     @Inject
     protected IdeaManager(IdeaValidator ideaValidator) {
