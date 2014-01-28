@@ -1,8 +1,7 @@
 package at.irian.cdiatwork.ideafork.test.backend;
 
-import at.irian.cdiatwork.ideafork.backend.api.converter.JSON;
+import at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.backend.api.converter.ObjectConverter;
-import at.irian.cdiatwork.ideafork.backend.api.converter.XML;
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.IdeaManager;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
@@ -12,6 +11,9 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
+import static at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat.TargetFormat.JSON;
+import static at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat.TargetFormat.XML;
+
 @RunWith(CdiTestRunner.class)
 public class QualifierTest {
     private final String topic = "Learn CDI-Qualifiers";
@@ -19,11 +21,11 @@ public class QualifierTest {
     private final String description = "Hello Qualifiers!";
 
     @Inject
-    @JSON
+    @ExternalFormat(JSON)
     private ObjectConverter objectConverterJSON;
 
     @Inject
-    @XML
+    @ExternalFormat(XML)
     private ObjectConverter objectConverterXML;
 
     @Inject

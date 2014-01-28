@@ -1,14 +1,14 @@
 package at.irian.cdiatwork.ideafork.backend.impl.converter;
 
+import at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.backend.api.converter.ObjectConverter;
-import at.irian.cdiatwork.ideafork.backend.api.converter.XML;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.xml.bind.JAXB;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-@XML
+@ExternalFormat(ExternalFormat.TargetFormat.XML)
 @ApplicationScoped
 public class XMLConverter implements ObjectConverter {
     @Override
