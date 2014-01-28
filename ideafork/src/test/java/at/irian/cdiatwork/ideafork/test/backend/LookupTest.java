@@ -1,6 +1,7 @@
 package at.irian.cdiatwork.ideafork.test.backend;
 
 import at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat;
+import at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormatLiteral;
 import at.irian.cdiatwork.ideafork.backend.api.converter.ObjectConverter;
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.IdeaManager;
@@ -17,6 +18,7 @@ import javax.inject.Inject;
 
 import static at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat.TargetFormat.CSV;
 import static at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat.TargetFormat.JSON;
+import static at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat.TargetFormat.XML;
 
 @RunWith(CdiTestRunner.class)
 public class LookupTest {
@@ -50,6 +52,21 @@ public class LookupTest {
         String jsonString = objectConverterJSONInstance.get().toString(exportedIdea);
 
         Idea importedIdea = objectConverterJSONInstance.get().toObject(jsonString, Idea.class);
+
+        Assert.assertTrue(exportedIdea.equals(importedIdea));
+    }
+
+    @Test
+    public void xmlConversion() {
+        Idea exportedIdea = ideaManager.createIdeaFor(topic, category);
+        exportedIdea.setDescription(description);
+
+        Assert.assertTrue(converterInstance.isAmbiguous());
+        Assert.assertFalse(converterInstance.isUnsatisfied());
+
+        String xmlString = converterInstance.select(new ExternalFormatLiteral(XML)).get().toString(exportedIdea);
+
+        Idea importedIdea = converterInstance.select(new ExternalFormatLiteral(XML)).get().toObject(xmlString, Idea.class);
 
         Assert.assertTrue(exportedIdea.equals(importedIdea));
     }
