@@ -18,6 +18,6 @@ public @interface ExternalFormat {
     String description() default "";
 
     enum TargetFormat {
-        XML, JSON
+        XML, JSON, CSV
     }
 }
