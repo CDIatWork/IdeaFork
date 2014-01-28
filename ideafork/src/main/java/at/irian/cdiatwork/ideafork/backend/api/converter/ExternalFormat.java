@@ -14,6 +14,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface ExternalFormat {
     TargetFormat value();
 
+    @Nonbinding
+    String description() default "";
+
     enum TargetFormat {
         XML, JSON
     }
