@@ -7,14 +7,20 @@ import at.irian.cdiatwork.ideafork.backend.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.IdeaManager;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.AmbiguousResolutionException;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.UnsatisfiedResolutionException;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
+
+import java.util.Set;
 
 import static at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat.TargetFormat.CSV;
 import static at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat.TargetFormat.JSON;
@@ -39,7 +45,17 @@ public class LookupTest {
     private Instance<ObjectConverter> objectConverterCSVInstance;
 
     @Inject
-    private IdeaManager ideaManager;
+    private BeanManager beanManager;
+
+    private IdeaManager ideaManager; //initialized via manual lookup instead of direct injection
+
+    @Before
+    public void init() {
+        Set<Bean<?>> beans = beanManager.getBeans(IdeaManager.class);
+        Bean<?> bean = beanManager.resolve(beans);
+        CreationalContext<?> creationalContext = beanManager.createCreationalContext(bean);
+        this.ideaManager = (IdeaManager)this.beanManager.getReference(bean, IdeaManager.class, creationalContext);
+    }
 
     @Test
     public void jsonConversion() {
@@ -66,7 +82,12 @@ public class LookupTest {
 
         String xmlString = converterInstance.select(new ExternalFormatLiteral(XML)).get().toString(exportedIdea);
 
-        Idea importedIdea = converterInstance.select(new ExternalFormatLiteral(XML)).get().toObject(xmlString, Idea.class);
+        Set<Bean<?>> beans = beanManager.getBeans(ObjectConverter.class, new ExternalFormatLiteral(XML));
+        Bean<?> bean = beanManager.resolve(beans);
+        CreationalContext<?> creationalContext = beanManager.createCreationalContext(bean);
+
+        ObjectConverter xmlConverter = (ObjectConverter)this.beanManager.getReference(bean, ObjectConverter.class, creationalContext);
+        Idea importedIdea = xmlConverter.toObject(xmlString, Idea.class);
 
         Assert.assertTrue(exportedIdea.equals(importedIdea));
     }
