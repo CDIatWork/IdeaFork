@@ -1,5 +1,7 @@
 package at.irian.cdiatwork.ideafork.backend.api.config;
 
+import at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat;
+
 import javax.enterprise.inject.Typed;
 import java.util.ResourceBundle;
 
@@ -7,6 +9,7 @@ import java.util.ResourceBundle;
 public class ApplicationConfig {
     private String applicationName;
     private ApplicationVersion applicationVersion; //just to illustrate a type-safe part as well
+    private ExternalFormat.TargetFormat defaultExternalFormat;
 
     protected ApplicationConfig() {
         //needed for creating a proxy
@@ -15,6 +18,7 @@ public class ApplicationConfig {
     public ApplicationConfig(ResourceBundle config) {
         this.applicationName = config.getString("name");
         this.applicationVersion = new ApplicationVersion(config.getString("version"));
+        this.defaultExternalFormat = ExternalFormat.TargetFormat.valueOf(config.getString("defaultExternalFormat"));
     }
 
     public String getApplicationName() {
@@ -23,6 +27,10 @@ public class ApplicationConfig {
 
     public ApplicationVersion getApplicationVersion() {
         return applicationVersion;
+    }
+
+    public ExternalFormat.TargetFormat getDefaultExternalFormat() {
+        return defaultExternalFormat;
     }
 
     public static class ApplicationVersion {
