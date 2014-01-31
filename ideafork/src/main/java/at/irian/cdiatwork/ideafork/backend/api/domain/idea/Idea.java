@@ -1,16 +1,24 @@
 package at.irian.cdiatwork.ideafork.backend.api.domain.idea;
 
-public class Idea {
+import java.io.Serializable;
+import java.util.UUID;
+
+public class Idea implements Serializable {
+    private static final long serialVersionUID = -3824813959555007833L;
+
+    private String id;
+
     //specified by the user
     private String topic;
     private String category;
     private String description;
 
     protected Idea() {
-        //needed by JAXB
+        this.id = UUID.randomUUID().toString();
     }
 
     Idea(String topic, String category) {
+        this();
         this.topic = topic;
         this.category = category;
     }
@@ -18,6 +26,10 @@ public class Idea {
     /*
      * generated
      */
+
+    public String getId() {
+        return id;
+    }
 
     public String getTopic() {
         return topic;
