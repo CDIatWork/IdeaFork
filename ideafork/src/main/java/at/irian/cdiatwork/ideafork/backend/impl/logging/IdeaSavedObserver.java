@@ -14,6 +14,7 @@ public class IdeaSavedObserver {
 
     private boolean isIdeaLoggingEnabled;
 
+    //just for demo-purposes - with a static isIdeaLoggingEnabled, it can be done with a static block as well
     @PostConstruct
     protected void init() {
         isIdeaLoggingEnabled = LOGGER.isLoggable(Level.FINE);

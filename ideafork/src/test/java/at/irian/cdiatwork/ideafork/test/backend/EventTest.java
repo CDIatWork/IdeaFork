@@ -22,6 +22,9 @@ public class EventTest {
     @Inject
     private TestIdeaSavedObserver ideaSavedObserver;
 
+    @Inject
+    private TestIdeaSavedConditionalObserver conditionalObserver;
+
     @Test
     public void eventDelivery() {
         Idea newIdea = this.ideaManager.createIdeaFor("Learn CDI-Events", "Education");
@@ -29,5 +32,18 @@ public class EventTest {
         Assert.assertFalse(this.ideaSavedObserver.isEventObserved());
         this.ideaRepository.save(newIdea);
         Assert.assertTrue(this.ideaSavedObserver.isEventObserved());
+    }
+
+    @Test
+    public void conditionalEventDelivery() {
+        Idea newIdea = this.ideaManager.createIdeaFor("Learn conditional CDI-Events", "Education");
+
+        Assert.assertFalse(this.ideaSavedObserver.isEventObserved());
+        this.ideaRepository.save(newIdea);
+        Assert.assertTrue(this.ideaSavedObserver.isEventObserved());
+
+        Assert.assertFalse(this.conditionalObserver.isEventObserved());
+        this.ideaRepository.save(newIdea);
+        Assert.assertTrue(this.conditionalObserver.isEventObserved());
     }
 }
