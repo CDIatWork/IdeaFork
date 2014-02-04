@@ -15,8 +15,12 @@ public class ConfigProducer {
     @Produces
     @ApplicationScoped
     public ApplicationConfig exposeConfig() {
-        ResourceBundle config = ResourceBundle.getBundle("app-config");
+        ResourceBundle config = ResourceBundle.getBundle(getConfigBaseName());
         return new ApplicationConfig(config);
+    }
+
+    protected String getConfigBaseName() {
+        return "app-config";
     }
 
     public void onDispose(@Disposes ApplicationConfig applicationConfig) {
