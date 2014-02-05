@@ -10,6 +10,7 @@ public class ApplicationConfig {
     private String applicationName;
     private ApplicationVersion applicationVersion; //just to illustrate a type-safe part as well
     private ExternalFormat.TargetFormat defaultExternalFormat;
+    private int methodInvocationThreshold;
 
     protected ApplicationConfig() {
         //needed for creating a proxy
@@ -19,6 +20,7 @@ public class ApplicationConfig {
         this.applicationName = config.getString("name");
         this.applicationVersion = new ApplicationVersion(config.getString("version"));
         this.defaultExternalFormat = ExternalFormat.TargetFormat.valueOf(config.getString("defaultExternalFormat"));
+        this.methodInvocationThreshold = Integer.parseInt(config.getString("methodInvocationThreshold"));
     }
 
     public String getApplicationName() {
@@ -31,6 +33,10 @@ public class ApplicationConfig {
 
     public ExternalFormat.TargetFormat getDefaultExternalFormat() {
         return defaultExternalFormat;
+    }
+
+    public int getMethodInvocationThreshold() {
+        return methodInvocationThreshold;
     }
 
     public static class ApplicationVersion {

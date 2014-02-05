@@ -2,11 +2,14 @@ package at.irian.cdiatwork.ideafork.backend.impl.converter;
 
 import at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.backend.api.converter.ObjectConverter;
+import at.irian.cdiatwork.ideafork.backend.api.monitoring.Monitored;
 import com.google.gson.Gson;
 
 import javax.enterprise.context.ApplicationScoped;
 
 @ExternalFormat(ExternalFormat.TargetFormat.JSON)
+
+@Monitored
 @ApplicationScoped
 public class JSONConverter implements ObjectConverter {
     @Override

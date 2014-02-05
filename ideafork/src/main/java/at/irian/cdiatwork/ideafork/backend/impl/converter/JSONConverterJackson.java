@@ -2,6 +2,7 @@ package at.irian.cdiatwork.ideafork.backend.impl.converter;
 
 import at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.backend.api.converter.ObjectConverter;
+import at.irian.cdiatwork.ideafork.backend.api.monitoring.Monitored;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -11,6 +12,7 @@ import javax.enterprise.inject.Alternative;
 @Alternative
 
 @ExternalFormat(ExternalFormat.TargetFormat.JSON)
+@Monitored
 @ApplicationScoped
 public class JSONConverterJackson implements ObjectConverter {
     @Override

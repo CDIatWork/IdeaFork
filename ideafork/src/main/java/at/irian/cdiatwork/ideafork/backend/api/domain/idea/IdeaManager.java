@@ -1,9 +1,12 @@
 package at.irian.cdiatwork.ideafork.backend.api.domain.idea;
 
+import at.irian.cdiatwork.ideafork.backend.api.monitoring.Monitored;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
+@Monitored
 public class IdeaManager {
     private IdeaValidator ideaValidator;
 

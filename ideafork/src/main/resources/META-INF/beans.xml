@@ -7,4 +7,8 @@
         <class>at.irian.cdiatwork.ideafork.backend.impl.converter.JSONConverterJackson</class>
         <class>at.irian.cdiatwork.ideafork.backend.impl.converter.XMLConverterJackson</class>
     </alternatives>
+
+    <interceptors>
+        <class>at.irian.cdiatwork.ideafork.backend.impl.monitoring.MonitoredInterceptor</class>
+    </interceptors>
 </beans>

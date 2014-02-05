@@ -2,6 +2,7 @@ package at.irian.cdiatwork.ideafork.backend.impl.converter;
 
 import at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.backend.api.converter.ObjectConverter;
+import at.irian.cdiatwork.ideafork.backend.api.monitoring.Monitored;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.xml.bind.JAXB;
@@ -9,6 +10,8 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 @ExternalFormat(ExternalFormat.TargetFormat.XML)
+
+@Monitored
 @ApplicationScoped
 public class XMLConverter implements ObjectConverter {
     @Override
