@@ -12,7 +12,7 @@ public class TestMonitoredInterceptorStrategy extends DefaultMonitoredIntercepto
     private static boolean slowInvocationSimulationModeActive;
 
     @Override
-    protected boolean isSlowInvocation(long start) {
+    protected boolean isSlowInvocation(long start, int maxThreshold) {
         return slowInvocationSimulationModeActive;
     }
 

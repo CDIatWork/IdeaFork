@@ -1,5 +1,6 @@
 package at.irian.cdiatwork.ideafork.backend.api.monitoring;
 
+import javax.enterprise.util.Nonbinding;
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -13,4 +14,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({TYPE, METHOD})
 @Retention(RUNTIME)
 public @interface Monitored {
+    @Nonbinding
+    int maxThreshold() default -1;
 }

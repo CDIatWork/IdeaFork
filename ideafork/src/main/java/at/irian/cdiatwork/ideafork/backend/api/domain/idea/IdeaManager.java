@@ -6,7 +6,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 @ApplicationScoped
-@Monitored
 public class IdeaManager {
     private IdeaValidator ideaValidator;
 
@@ -19,6 +18,7 @@ public class IdeaManager {
         this.ideaValidator = ideaValidator;
     }
 
+    @Monitored(maxThreshold = 10)
     public Idea createIdeaFor(String topic, String category) {
         Idea result = new Idea(topic, category);
 
