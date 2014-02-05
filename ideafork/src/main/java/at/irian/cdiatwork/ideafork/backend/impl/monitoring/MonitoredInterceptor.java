@@ -15,25 +15,10 @@ public class MonitoredInterceptor implements Serializable {
     private static final long serialVersionUID = 3503111146284126952L;
 
     @Inject
-    private MonitoredStorage monitoredStorage;
-
-    @Inject
-    private ApplicationConfig applicationConfig;
+    private MonitoredInterceptorStrategy interceptorStrategy;
 
     @AroundInvoke
     public Object intercept(InvocationContext ic) throws Exception {
-        long start = System.currentTimeMillis();
-
-        try {
-            return ic.proceed();
-        } finally {
-            if (isSlowInvocation(start)) {
-                this.monitoredStorage.recordSlowMethod(ic.getTarget().getClass().getName() + "#" + ic.getMethod().getName());
-            }
-        }
-    }
-
-    private boolean isSlowInvocation(long start) {
-        return System.currentTimeMillis() - start > applicationConfig.getMethodInvocationThreshold();
+        return this.interceptorStrategy.intercept(ic);
     }
 }
