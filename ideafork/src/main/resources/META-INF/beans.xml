@@ -11,4 +11,10 @@
     <interceptors>
         <class>at.irian.cdiatwork.ideafork.backend.impl.monitoring.MonitoredInterceptor</class>
     </interceptors>
+
+    <decorators>
+        <class>at.irian.cdiatwork.ideafork.backend.impl.repository.decorator.idea.IdeaRepositoryDecorator</class>
+        <class>at.irian.cdiatwork.ideafork.backend.impl.repository.decorator.role.UserRepositoryDecorator</class>
+    </decorators>
+
 </beans>

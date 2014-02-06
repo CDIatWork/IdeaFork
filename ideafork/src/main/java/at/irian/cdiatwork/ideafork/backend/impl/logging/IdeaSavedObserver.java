@@ -1,6 +1,6 @@
 package at.irian.cdiatwork.ideafork.backend.impl.logging;
 
-import at.irian.cdiatwork.ideafork.backend.api.domain.idea.Idea;
+import at.irian.cdiatwork.ideafork.backend.api.domain.idea.IdeaChangedEvent;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -20,9 +20,9 @@ public class IdeaSavedObserver {
         isIdeaLoggingEnabled = LOGGER.isLoggable(Level.FINE);
     }
 
-    public void onIdeaSavedEvent(@Observes Idea savedIdea) {
+    public void onIdeaSavedEvent(@Observes IdeaChangedEvent savedIdea) {
         if (isIdeaLoggingEnabled) {
-            LOGGER.fine("saved idea: " + savedIdea.getId());
+            LOGGER.fine("saved idea: " + savedIdea.getEntity().getId());
         }
     }
 }

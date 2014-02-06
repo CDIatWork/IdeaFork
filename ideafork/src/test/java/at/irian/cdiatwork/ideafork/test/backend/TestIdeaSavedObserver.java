@@ -1,6 +1,6 @@
 package at.irian.cdiatwork.ideafork.test.backend;
 
-import at.irian.cdiatwork.ideafork.backend.api.domain.idea.Idea;
+import at.irian.cdiatwork.ideafork.backend.api.domain.idea.IdeaChangedEvent;
 import at.irian.cdiatwork.ideafork.backend.impl.logging.IdeaSavedObserver;
 
 import javax.enterprise.context.RequestScoped;
@@ -13,7 +13,7 @@ public class TestIdeaSavedObserver extends IdeaSavedObserver {
     private boolean isEventObserved;
 
     @Override
-    public void onIdeaSavedEvent(@Observes Idea savedIdea) {
+    public void onIdeaSavedEvent(@Observes IdeaChangedEvent savedIdea) {
         super.onIdeaSavedEvent(savedIdea);
         this.isEventObserved = true;
     }
