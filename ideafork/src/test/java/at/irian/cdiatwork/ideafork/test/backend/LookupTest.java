@@ -5,6 +5,8 @@ import at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormatLiteral;
 import at.irian.cdiatwork.ideafork.backend.api.converter.ObjectConverter;
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.IdeaManager;
+import at.irian.cdiatwork.ideafork.backend.api.domain.role.User;
+import at.irian.cdiatwork.ideafork.backend.api.domain.role.UserManager;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Assert;
 import org.junit.Before;
@@ -48,18 +50,25 @@ public class LookupTest {
     private BeanManager beanManager;
 
     private IdeaManager ideaManager; //initialized via manual lookup instead of direct injection
+    private UserManager userManager; //initialized via manual lookup instead of direct injection
 
     @Before
     public void init() {
-        Set<Bean<?>> beans = beanManager.getBeans(IdeaManager.class);
-        Bean<?> bean = beanManager.resolve(beans);
-        CreationalContext<?> creationalContext = beanManager.createCreationalContext(bean);
-        this.ideaManager = (IdeaManager)this.beanManager.getReference(bean, IdeaManager.class, creationalContext);
+        Set<Bean<?>> imBeans = beanManager.getBeans(IdeaManager.class);
+        Bean<?> imBean = beanManager.resolve(imBeans);
+        CreationalContext<?> imCreationalContext = beanManager.createCreationalContext(imBean);
+        this.ideaManager = (IdeaManager)this.beanManager.getReference(imBean, IdeaManager.class, imCreationalContext);
+
+        Set<Bean<?>> umBeans = beanManager.getBeans(UserManager.class);
+        Bean<?> umBean = beanManager.resolve(umBeans);
+        CreationalContext<?> umCreationalContext = beanManager.createCreationalContext(umBean);
+        this.userManager = (UserManager)this.beanManager.getReference(umBean, UserManager.class, umCreationalContext);
     }
 
     @Test
     public void jsonConversion() {
-        Idea exportedIdea = ideaManager.createIdeaFor(topic, category);
+        User author = userManager.createUserFor("os890", null);
+        Idea exportedIdea = ideaManager.createIdeaFor(topic, category, author);
         exportedIdea.setDescription(description);
 
         //true with weld in combination with alternatives Assert.assertFalse(objectConverterJSONInstance.isAmbiguous());
@@ -74,7 +83,8 @@ public class LookupTest {
 
     @Test
     public void xmlConversion() {
-        Idea exportedIdea = ideaManager.createIdeaFor(topic, category);
+        User author = userManager.createUserFor("os890", null);
+        Idea exportedIdea = ideaManager.createIdeaFor(topic, category, author);
         exportedIdea.setDescription(description);
 
         Assert.assertTrue(converterInstance.isAmbiguous());
@@ -114,9 +124,10 @@ public class LookupTest {
         Assert.assertFalse(converterInstance.isUnsatisfied());
 
         int count = 0;
+        User author = userManager.createUserFor("os890", null);
 
         for (ObjectConverter converter : converterInstance) {
-            Idea ideaToExport = ideaManager.createIdeaFor(topic, category);
+            Idea ideaToExport = ideaManager.createIdeaFor(topic, category, author);
 
             String exportedIdea = converter.toString(ideaToExport);
             Assert.assertTrue(converter.toObject(exportedIdea, Idea.class).equals(ideaToExport));

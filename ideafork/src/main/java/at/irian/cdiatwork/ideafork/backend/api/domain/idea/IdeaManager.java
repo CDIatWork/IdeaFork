@@ -1,6 +1,7 @@
 package at.irian.cdiatwork.ideafork.backend.api.domain.idea;
 
 import at.irian.cdiatwork.ideafork.backend.api.monitoring.Monitored;
+import at.irian.cdiatwork.ideafork.backend.api.domain.role.User;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -19,8 +20,8 @@ public class IdeaManager {
     }
 
     @Monitored(maxThreshold = 10)
-    public Idea createIdeaFor(String topic, String category) {
-        Idea result = new Idea(topic, category);
+    public Idea createIdeaFor(String topic, String category, User author) {
+        Idea result = new Idea(topic, category, author);
 
         if (!this.ideaValidator.checkIdea(result)) {
              throw new IllegalArgumentException("Please try it harder next time!");

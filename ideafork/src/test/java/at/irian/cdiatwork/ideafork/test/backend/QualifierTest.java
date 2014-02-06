@@ -4,6 +4,8 @@ import at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.backend.api.converter.ObjectConverter;
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.IdeaManager;
+import at.irian.cdiatwork.ideafork.backend.api.domain.role.User;
+import at.irian.cdiatwork.ideafork.backend.api.domain.role.UserManager;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,9 +33,13 @@ public class QualifierTest {
     @Inject
     private IdeaManager ideaManager;
 
+    @Inject
+    private UserManager userManager;
+
     @Test
     public void jsonConversion() {
-        Idea exportedIdea = ideaManager.createIdeaFor(topic, category);
+        User author = userManager.createUserFor("os890", null);
+        Idea exportedIdea = ideaManager.createIdeaFor(topic, category, author);
         exportedIdea.setDescription(description);
 
         String jsonString = objectConverterJSON.toString(exportedIdea);
@@ -45,7 +51,8 @@ public class QualifierTest {
 
     @Test
     public void xmlConversion() {
-        Idea exportedIdea = ideaManager.createIdeaFor(topic, category);
+        User author = userManager.createUserFor("os890", null);
+        Idea exportedIdea = ideaManager.createIdeaFor(topic, category, author);
         exportedIdea.setDescription(description);
 
         String xmlString = objectConverterXML.toString(exportedIdea);
@@ -57,7 +64,8 @@ public class QualifierTest {
 
     @Test
     public void exportToJson() {
-        Idea newIdea = ideaManager.createIdeaFor(topic, category);
+        User author = userManager.createUserFor("os890", null);
+        Idea newIdea = ideaManager.createIdeaFor(topic, category, author);
         newIdea.setDescription(description);
 
         String jsonString = objectConverterJSON.toString(newIdea);
@@ -73,7 +81,8 @@ public class QualifierTest {
 
     @Test
     public void exportToXml() {
-        Idea newIdea = ideaManager.createIdeaFor(topic, category);
+        User author = userManager.createUserFor("os890", null);
+        Idea newIdea = ideaManager.createIdeaFor(topic, category, author);
         newIdea.setDescription(description);
 
         String xmlString = objectConverterXML.toString(newIdea);

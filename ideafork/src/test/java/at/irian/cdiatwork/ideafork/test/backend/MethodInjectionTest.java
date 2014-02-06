@@ -2,6 +2,8 @@ package at.irian.cdiatwork.ideafork.test.backend;
 
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.IdeaManager;
+import at.irian.cdiatwork.ideafork.backend.api.domain.role.User;
+import at.irian.cdiatwork.ideafork.backend.api.domain.role.UserManager;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,9 +16,12 @@ public class MethodInjectionTest {
 
     private IdeaManager ideaManager;
 
+    private UserManager userManager;
+
     @Inject
-    protected void init(IdeaManager ideaManager) {
+    protected void init(IdeaManager ideaManager, UserManager userManager) {
         this.ideaManager = ideaManager;
+        this.userManager = userManager;
     }
 
     @Test
@@ -25,7 +30,8 @@ public class MethodInjectionTest {
         final String category = "Education";
         final String description = "Hello Method-Injection!";
 
-        Idea newIdea = this.ideaManager.createIdeaFor(topic, category);
+        User author = userManager.createUserFor("os890", null);
+        Idea newIdea = this.ideaManager.createIdeaFor(topic, category, author);
         newIdea.setDescription(description);
 
         Assert.assertEquals(topic, newIdea.getTopic());
@@ -35,6 +41,6 @@ public class MethodInjectionTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void invalidIdeaCreation() {
-        this.ideaManager.createIdeaFor(null, null);
+        this.ideaManager.createIdeaFor(null, null, null);
     }
 }

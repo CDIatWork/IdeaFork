@@ -1,6 +1,8 @@
 package at.irian.cdiatwork.ideafork.test.backend;
 
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.IdeaManager;
+import at.irian.cdiatwork.ideafork.backend.api.domain.role.User;
+import at.irian.cdiatwork.ideafork.backend.api.domain.role.UserManager;
 import at.irian.cdiatwork.ideafork.backend.impl.monitoring.MonitoredStorage;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.After;
@@ -18,6 +20,9 @@ public class InterceptorTest {
     @Inject
     private MonitoredStorage monitoredStorage;
 
+    @Inject
+    private UserManager userManager;
+
     @After
     public void resetInvocationMode() {
         TestMonitoredInterceptorStrategy.activateTestMode(false);
@@ -25,7 +30,8 @@ public class InterceptorTest {
 
     @Test
     public void normalMethodInvocation() {
-        this.ideaManager.createIdeaFor("", "");
+        User author = userManager.createUserFor("os890", null);
+        this.ideaManager.createIdeaFor("", "", author);
         Assert.assertTrue(monitoredStorage.getSlowMethods().isEmpty());
     }
 
@@ -33,7 +39,9 @@ public class InterceptorTest {
     public void slowMethodInvocation() {
         TestMonitoredInterceptorStrategy.activateTestMode(true);
         Assert.assertTrue(monitoredStorage.getSlowMethods().isEmpty());
-        this.ideaManager.createIdeaFor("", "");
+
+        User author = userManager.createUserFor("os890", null);
+        this.ideaManager.createIdeaFor("", "", author);
         Assert.assertFalse(monitoredStorage.getSlowMethods().isEmpty());
     }
 }

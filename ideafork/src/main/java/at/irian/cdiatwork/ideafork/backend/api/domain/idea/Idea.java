@@ -1,35 +1,45 @@
 package at.irian.cdiatwork.ideafork.backend.api.domain.idea;
 
-import java.io.Serializable;
-import java.util.UUID;
+import at.irian.cdiatwork.ideafork.backend.api.domain.BaseEntity;
+import at.irian.cdiatwork.ideafork.backend.api.domain.role.User;
 
-public class Idea implements Serializable {
+import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement //wouldn't be needed if we use jackson only
+public class Idea extends BaseEntity {
     private static final long serialVersionUID = -3824813959555007833L;
 
-    private String id;
-
-    //specified by the user
     private String topic;
-    private String category;
+    private String category; //specified by the user
     private String description;
 
-    protected Idea() {
-        this.id = UUID.randomUUID().toString();
+    @XmlElementRef //wouldn't be needed if we use jackson only
+    private User author;
+
+    private String baseIdeaId;
+    private Long baseIdeaVersion;
+
+    private Idea() {
+        //needed for data-import
     }
 
-    Idea(String topic, String category) {
-        this();
+    Idea(String topic, String category, User author) {
         this.topic = topic;
         this.category = category;
+        this.author = author;
+    }
+
+    Idea(Idea baseIdea, User author) {
+        this(baseIdea.getTopic(), baseIdea.getCategory(), author);
+        this.description = baseIdea.getDescription();
+        this.baseIdeaId = baseIdea.id;
+        this.baseIdeaVersion = baseIdea.version;
     }
 
     /*
      * generated
      */
-
-    public String getId() {
-        return id;
-    }
 
     public String getTopic() {
         return topic;
@@ -55,6 +65,22 @@ public class Idea implements Serializable {
         this.description = description;
     }
 
+    public String getBaseIdeaId() {
+        return baseIdeaId;
+    }
+
+    public Long getBaseIdeaVersion() {
+        return baseIdeaVersion;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    /*
+     * generated
+     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,6 +88,10 @@ public class Idea implements Serializable {
 
         Idea idea = (Idea) o;
 
+        if (!author.equals(idea.author)) return false;
+        if (baseIdeaId != null ? !baseIdeaId.equals(idea.baseIdeaId) : idea.baseIdeaId != null) return false;
+        if (baseIdeaVersion != null ? !baseIdeaVersion.equals(idea.baseIdeaVersion) : idea.baseIdeaVersion != null)
+            return false;
         if (!category.equals(idea.category)) return false;
         if (description != null ? !description.equals(idea.description) : idea.description != null) return false;
         if (!topic.equals(idea.topic)) return false;
@@ -75,6 +105,9 @@ public class Idea implements Serializable {
         result = 31 * result + (topic != null ? topic.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (author != null ? author.hashCode() : 0);
+        result = 31 * result + (baseIdeaId != null ? baseIdeaId.hashCode() : 0);
+        result = 31 * result + (baseIdeaVersion != null ? baseIdeaVersion.hashCode() : 0);
         return result;
     }
 }
