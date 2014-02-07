@@ -15,6 +15,7 @@
     <decorators>
         <class>at.irian.cdiatwork.ideafork.backend.impl.repository.decorator.idea.IdeaRepositoryDecorator</class>
         <class>at.irian.cdiatwork.ideafork.backend.impl.repository.decorator.role.UserRepositoryDecorator</class>
+        <class>at.irian.cdiatwork.ideafork.backend.impl.repository.decorator.change.EntityChangeRepositoryDecorator</class>
     </decorators>
 
 </beans>
