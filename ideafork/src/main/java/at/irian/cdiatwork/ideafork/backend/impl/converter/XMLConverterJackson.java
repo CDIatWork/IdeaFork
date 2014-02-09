@@ -2,19 +2,16 @@ package at.irian.cdiatwork.ideafork.backend.impl.converter;
 
 import at.irian.cdiatwork.ideafork.backend.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.backend.api.converter.ObjectConverter;
-import at.irian.cdiatwork.ideafork.backend.api.monitoring.Monitored;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Alternative;
 import java.io.IOException;
 
 @Alternative
 
 @ExternalFormat(ExternalFormat.TargetFormat.XML)
-@Monitored
-@ApplicationScoped
+@JacksonConverter
 public class XMLConverterJackson implements ObjectConverter {
     @Override
     public <T> T toObject(String value, Class<T> targetType) {
