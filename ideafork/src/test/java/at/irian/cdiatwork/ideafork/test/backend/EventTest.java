@@ -4,7 +4,6 @@ import at.irian.cdiatwork.ideafork.backend.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.backend.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.backend.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.backend.api.domain.role.UserManager;
-import at.irian.cdiatwork.ideafork.backend.api.repository.idea.IdeaRepository;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,9 +16,6 @@ public class EventTest {
 
     @Inject
     private IdeaManager ideaManager;
-
-    @Inject
-    private IdeaRepository ideaRepository;
 
     @Inject
     private UserManager userManager;
@@ -36,7 +32,7 @@ public class EventTest {
         Idea newIdea = this.ideaManager.createIdeaFor("Learn CDI-Events", "Education", author);
 
         Assert.assertFalse(this.ideaSavedObserver.isEventObserved());
-        this.ideaRepository.save(newIdea);
+        this.ideaManager.save(newIdea);
         Assert.assertTrue(this.ideaSavedObserver.isEventObserved());
     }
 
@@ -46,11 +42,11 @@ public class EventTest {
         Idea newIdea = this.ideaManager.createIdeaFor("Learn conditional CDI-Events", "Education", author);
 
         Assert.assertFalse(this.ideaSavedObserver.isEventObserved());
-        this.ideaRepository.save(newIdea);
+        this.ideaManager.save(newIdea);
         Assert.assertTrue(this.ideaSavedObserver.isEventObserved());
 
         Assert.assertFalse(this.conditionalObserver.isEventObserved());
-        this.ideaRepository.save(newIdea);
+        this.ideaManager.save(newIdea);
         Assert.assertTrue(this.conditionalObserver.isEventObserved());
     }
 }

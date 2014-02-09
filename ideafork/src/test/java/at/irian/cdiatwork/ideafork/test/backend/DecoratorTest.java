@@ -7,8 +7,6 @@ import at.irian.cdiatwork.ideafork.backend.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.backend.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.backend.api.domain.role.UserManager;
 import at.irian.cdiatwork.ideafork.backend.api.repository.change.EntityChangeRepository;
-import at.irian.cdiatwork.ideafork.backend.api.repository.idea.IdeaRepository;
-import at.irian.cdiatwork.ideafork.backend.api.repository.role.UserRepository;
 import junit.framework.Assert;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Test;
@@ -28,12 +26,6 @@ public class DecoratorTest {
     private UserManager userManager;
 
     @Inject
-    private IdeaRepository ideaRepository;
-
-    @Inject
-    private UserRepository userRepository;
-
-    @Inject
     private EntityChangeRepository entityChangeRepository;
 
     @Inject
@@ -42,17 +34,17 @@ public class DecoratorTest {
     @Test
     public void ideaCreationWithPassingGenericDecoratorCheck() {
         Assert.assertNotNull(this.ideaManager);
-        Assert.assertNotNull(this.ideaRepository);
+        Assert.assertNotNull(this.userManager);
 
         User author = this.userManager.createUserFor("os890", null);
-        this.userRepository.save(author);
-        author = this.userRepository.loadById(author.getId());
+        this.userManager.save(author);
+        author = this.userManager.loadById(author.getId());
 
         Idea newIdea = this.ideaManager.createIdeaFor(topic, category, author);
 
-        this.ideaRepository.save(newIdea);
+        this.ideaManager.save(newIdea);
 
-        Idea savedIdea = this.ideaRepository.loadById(newIdea.getId());
+        Idea savedIdea = this.ideaManager.loadById(newIdea.getId());
 
         Assert.assertEquals(newIdea.getTopic(), savedIdea.getTopic());
         Assert.assertEquals(newIdea.getCategory(), savedIdea.getCategory());
@@ -66,6 +58,6 @@ public class DecoratorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void ideaCreationWithFailingGenericDecoratorCheck() {
-        this.ideaRepository.save(null);
+        this.ideaManager.save(null);
     }
 }

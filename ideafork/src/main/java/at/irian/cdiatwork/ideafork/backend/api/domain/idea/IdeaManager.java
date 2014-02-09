@@ -2,21 +2,28 @@ package at.irian.cdiatwork.ideafork.backend.api.domain.idea;
 
 import at.irian.cdiatwork.ideafork.backend.api.monitoring.Monitored;
 import at.irian.cdiatwork.ideafork.backend.api.domain.role.User;
+import at.irian.cdiatwork.ideafork.backend.api.repository.idea.IdeaRepository;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Typed;
 import javax.inject.Inject;
 
 @ApplicationScoped
-public class IdeaManager {
+@Typed(IdeaManager.class)
+public class IdeaManager implements IdeaRepository {
+    private static final long serialVersionUID = -2246005095175518718L;
+
     private IdeaValidator ideaValidator;
+    private IdeaRepository ideaRepository;
 
     protected IdeaManager() {
         //needed by proxy-libs
     }
 
     @Inject
-    protected IdeaManager(IdeaValidator ideaValidator) {
+    protected IdeaManager(IdeaValidator ideaValidator, IdeaRepository ideaRepository) {
         this.ideaValidator = ideaValidator;
+        this.ideaRepository = ideaRepository;
     }
 
     @Monitored(maxThreshold = 10)
@@ -28,5 +35,20 @@ public class IdeaManager {
         }
 
         return result;
+    }
+
+    @Override
+    public void save(Idea entity) {
+        ideaRepository.save(entity);
+    }
+
+    @Override
+    public void remove(Idea entity) {
+        ideaRepository.remove(entity);
+    }
+
+    @Override
+    public Idea loadById(String id) {
+        return ideaRepository.loadById(id);
     }
 }
