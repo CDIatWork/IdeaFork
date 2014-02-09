@@ -4,8 +4,10 @@ import at.irian.cdiatwork.ideafork.backend.api.config.ApplicationConfig;
 import at.irian.cdiatwork.ideafork.backend.api.monitoring.Monitored;
 
 import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.interceptor.InvocationContext;
+import java.lang.annotation.Annotation;
 
 @Dependent
 public class DefaultMonitoredInterceptorStrategy implements MonitoredInterceptorStrategy {
@@ -16,6 +18,9 @@ public class DefaultMonitoredInterceptorStrategy implements MonitoredInterceptor
 
     @Inject
     private ApplicationConfig applicationConfig;
+
+    @Inject
+    private BeanManager beanManager;
 
     @Override
     public Object intercept(InvocationContext ic) throws Exception {
@@ -40,13 +45,31 @@ public class DefaultMonitoredInterceptorStrategy implements MonitoredInterceptor
     private Monitored extractMonitoredAnnotation(InvocationContext ic) {
         Monitored result = ic.getMethod().getAnnotation(Monitored.class);
 
-        if (result == null) {
-            result = ic.getTarget().getClass().getAnnotation(Monitored.class);
+        if (result != null) {
+            return result;
         }
 
-        if (result == null) { //needed for some versions of weld
-            result = ic.getTarget().getClass().getSuperclass().getAnnotation(Monitored.class);
+        Class<?> targetClass = ic.getTarget().getClass();
+
+        //needed for some versions of weld
+        if (targetClass.getName().startsWith(targetClass.getSuperclass().getName()) &&
+                targetClass.getName().contains("$$")) {
+            targetClass = targetClass.getSuperclass();
         }
+
+        result = targetClass.getAnnotation(Monitored.class);
+
+        //simplest logic for stereotypes
+        if (result == null) {
+            for (Annotation annotation : targetClass.getAnnotations()) {
+                result = annotation.annotationType().getAnnotation(Monitored.class);
+
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+
         return result;
     }
 

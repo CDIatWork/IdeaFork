@@ -2,13 +2,10 @@ package at.irian.cdiatwork.ideafork.backend.impl.repository.inmemory.change;
 
 import at.irian.cdiatwork.ideafork.backend.api.domain.change.EntityChange;
 import at.irian.cdiatwork.ideafork.backend.api.repository.change.EntityChangeRepository;
-import at.irian.cdiatwork.ideafork.backend.impl.monitoring.Monitored;
+import at.irian.cdiatwork.ideafork.backend.impl.repository.Repository;
 import at.irian.cdiatwork.ideafork.backend.impl.repository.inmemory.GenericInMemoryRepository;
 
-import javax.enterprise.context.ApplicationScoped;
-
-@Monitored
-@ApplicationScoped
+@Repository
 public class EntityChangeInMemoryRepository extends GenericInMemoryRepository<EntityChange> implements EntityChangeRepository {
     private static final long serialVersionUID = 4943122589188849100L;
 
