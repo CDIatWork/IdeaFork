@@ -1,0 +1,14 @@
+target
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings
+.metadata
+.svn
+.idea
+.checkstyle
+*.patch
+.DS_Store
+~*
