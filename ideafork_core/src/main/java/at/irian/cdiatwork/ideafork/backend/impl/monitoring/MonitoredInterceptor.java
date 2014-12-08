@@ -1,6 +1,5 @@
 package at.irian.cdiatwork.ideafork.backend.impl.monitoring;
 
-import at.irian.cdiatwork.ideafork.backend.api.config.ApplicationConfig;
 import at.irian.cdiatwork.ideafork.backend.api.monitoring.Monitored;
 
 import javax.inject.Inject;
