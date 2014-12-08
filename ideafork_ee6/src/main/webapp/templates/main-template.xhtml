@@ -40,6 +40,18 @@
                         </li>
                     </ul>
                 </h:form>
+                <h:form class="navbar-form navbar-right" role="search">
+                    <h:panelGroup layout="block" class="form-group" rendered="#{activeUserHolder.loggedIn}">
+                        <ui:remove>onclick and onblur instead of html5 placeholder</ui:remove>
+                        <h:inputText id="searchText" styleClass="form-control" style="color: #ccc"
+                                     onclick="if (this.value == '#{searchViewCtrl.searchTextPlaceholder}') {this.value = ''; this.style.color = '#000';}"
+                                     onblur="if (this.value == '') {this.value = '#{searchViewCtrl.searchTextPlaceholder}'; this.style.color = '#ccc';}"
+                                     value="#{searchViewCtrl.searchText}"/>
+                    </h:panelGroup>
+                    <h:commandLink id="lnkSearch" action="#{searchViewCtrl.search}" styleClass="btn btn-default btn-sm" rendered="#{activeUserHolder.loggedIn}">
+                        <span class="glyphicon glyphicon-search"/>
+                    </h:commandLink>
+                </h:form>
             </div>
         </div>
     </div>

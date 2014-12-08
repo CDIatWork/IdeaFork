@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/main-template.xhtml">
+
+    <ui:define name="panel-title">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-share-alt"/> Fork Idea</h3>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:dataTable var="currentIdea" value="#{searchViewCtrl.searchResult}" styleClass="table">
+            <h:column>
+                <f:facet name="header">
+                    Topic
+                </f:facet>
+                #{currentIdea.topic}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Category
+                </f:facet>
+                #{currentIdea.category}
+            </h:column>
+            <h:column>
+                <h:commandLink id="lnkForkIdea" styleClass="btn" action="#{ideaForkViewCtrl.forkIdea(currentIdea)}">
+                    <span class="glyphicon glyphicon-share-alt"/>
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
+    </ui:define>
+</ui:composition>
