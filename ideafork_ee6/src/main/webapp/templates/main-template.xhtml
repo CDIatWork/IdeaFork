@@ -17,16 +17,16 @@
             <div id="nav" class="collapse navbar-collapse">
                 <h:form>
                     <div class="navbar-header">
-                        <a id="lnkHome" class="navbar-brand">
+                        <h:commandLink id="lnkHome" action="#{menuBean.home}" immediate="true" styleClass="navbar-brand">
                             <b>IdeaFork.demo</b> (Beta)
-                        </a>
+                        </h:commandLink>
                     </div>
 
                     <ul id="desktopNav1" class="nav navbar-nav">
                         <li>
-                            <a id="lnkStart">
+                            <h:commandLink id="lnkStart" action="#{menuBean.start}" immediate="true">
                                 <span class="glyphicon glyphicon-play"/> <span class="text-danger" style="font-weight: bold;"> Start</span>
-                            </a>
+                            </h:commandLink>
                         </li>
                     </ul>
                 </h:form>

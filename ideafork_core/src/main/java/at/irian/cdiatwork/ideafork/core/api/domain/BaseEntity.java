@@ -1,5 +1,7 @@
 package at.irian.cdiatwork.ideafork.core.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -11,6 +13,11 @@ public abstract class BaseEntity implements Serializable {
 
     public BaseEntity() {
         this.id = UUID.randomUUID().toString().replace("-", "");
+    }
+
+    @JsonIgnore
+    public boolean isTransient() {
+        return version == null;
     }
 
     public void increaseVersion() {
