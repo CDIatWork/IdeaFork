@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <groupId>at.irian.cdiatwork</groupId>
-    <artifactId>ideafork-backend</artifactId>
+    <artifactId>ideafork-core</artifactId>
 
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
 
-    <name>IdeaFork Backend</name>
+    <name>IdeaFork Core</name>
     <version>1.0.0</version>
 
     <properties>
@@ -103,28 +103,31 @@
                     <groupId>org.apache.geronimo.specs</groupId>
                     <artifactId>geronimo-atinject_1.0_spec</artifactId>
                     <version>1.0</version>
+                    <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.geronimo.specs</groupId>
                     <artifactId>geronimo-jcdi_1.0_spec</artifactId>
                     <version>1.0</version>
+                    <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.geronimo.specs</groupId>
                     <artifactId>geronimo-interceptor_1.1_spec</artifactId>
                     <version>1.0</version>
+                    <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.openwebbeans</groupId>
                     <artifactId>openwebbeans-impl</artifactId>
                     <version>${owb.version}</version>
-                    <scope>runtime</scope>
+                    <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.openwebbeans</groupId>
                     <artifactId>openwebbeans-spi</artifactId>
                     <version>${owb.version}</version>
-                    <scope>runtime</scope>
+                    <scope>provided</scope>
                 </dependency>
 
                 <!-- Test Dependencies -->
@@ -163,30 +166,31 @@
                 <dependency>
                     <groupId>javax.enterprise</groupId>
                     <artifactId>cdi-api</artifactId>
+                    <scope>provided</scope>
                 </dependency>
 
                 <dependency>
                     <groupId>org.jboss.weld</groupId>
                     <artifactId>weld-api</artifactId>
-                    <scope>runtime</scope>
+                    <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.jboss.weld</groupId>
                     <artifactId>weld-core</artifactId>
-                    <scope>runtime</scope>
+                    <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.jboss.weld.se</groupId>
                     <artifactId>weld-se</artifactId>
                     <version>${weld.version}</version>
-                    <scope>runtime</scope>
+                    <scope>provided</scope>
                 </dependency>
 
                 <dependency>
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-simple</artifactId>
                     <version>1.7.2</version>
-                    <scope>runtime</scope>
+                    <scope>provided</scope>
                 </dependency>
 
                 <!-- Test Dependencies -->

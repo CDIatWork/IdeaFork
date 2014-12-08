@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <groupId>at.irian.cdiatwork</groupId>
+    <artifactId>ideafork-ee6</artifactId>
+
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>war</packaging>
+
+    <name>IdeaFork Java EE6</name>
+    <version>1.0.0</version>
+
+    <properties>
+        <myfaces-core.version>2.1.14</myfaces-core.version>
+        <tomee-api.version>6.0-6</tomee-api.version>
+    </properties>
+
+    <build>
+        <finalName>IdeaFork_EE6</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Project dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>at.irian.cdiatwork</groupId>
+            <artifactId>ideafork-core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${tomee-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${myfaces-core.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>
