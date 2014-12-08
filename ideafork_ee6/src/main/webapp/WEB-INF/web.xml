@@ -14,6 +14,12 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
 
+    <!-- needed for the relative-resource-handler -->
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>pages/index.xhtml</welcome-file>
     </welcome-file-list>

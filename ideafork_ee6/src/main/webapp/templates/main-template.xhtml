@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:insert name="page-events"/>
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8"/>
+
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="bootstrap-theme.min.css"/>
+    <h:outputStylesheet library="css" name="custom.css"/>
+</h:head>
+<h:body>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div id="nav" class="collapse navbar-collapse">
+                <h:form>
+                    <div class="navbar-header">
+                        <a id="lnkHome" class="navbar-brand">
+                            <b>IdeaFork.demo</b> (Beta)
+                        </a>
+                    </div>
+
+                    <ul id="desktopNav1" class="nav navbar-nav">
+                        <li>
+                            <a id="lnkStart">
+                                <span class="glyphicon glyphicon-play"/> <span class="text-danger" style="font-weight: bold;"> Start</span>
+                            </a>
+                        </li>
+                    </ul>
+                </h:form>
+            </div>
+        </div>
+    </div>
+
+    <p style="height: 50px"/>
+
+    <ui:insert name="main-container">
+        <div class="container">
+            <div class="page-header" style="border: 0">
+                <h2>IdeaFork <small>Organize, share and fork ideas</small></h2>
+            </div>
+
+            <ui:insert name="content-container">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <ui:insert name="panel-title"/>
+                    </div>
+                    <div class="panel-body">
+                        <h:form>
+                            <ui:insert name="content"/>
+                        </h:form>
+                    </div>
+                </div>
+            </ui:insert>
+        </div>
+    </ui:insert>
+
+    <h:outputScript library="js" name="jquery.min.js"/>
+    <h:outputScript library="js" name="bootstrap.min.js"/>
+</h:body>
+</html>

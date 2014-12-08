@@ -1,13 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-    <title>Hello IdeaFork</title>
-</h:head>
-<h:body>
-    <h1>Hello IdeaFork</h1>
-</h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/main-template.xhtml">
+    <ui:define name="content-container">
+        <h:form>
+            <div class="jumbotron" style="background-color: #F8F8F8;">
+                <p class="lead">
+                    ... is a <strong>FREE</strong> and open platform for sharing ideas.
+                    <ul>
+                        <li>Never forget your ideas</li>
+                        <li>Publish ideas to find collaborators</li>
+                        <li>Discover ideas from others</li>
+                        <li>Fork/copy ideas to improve them on your own</li>
+                    </ul>
+                </p>
+            </div>
+        </h:form>
+
+        <div class="alert alert-warning alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+            <strong>Warning!</strong> If you publish an idea on this platform, you automatically accept that everybody is allowed to read and use it without limitations.
+        </div>
+    </ui:define>
+</ui:composition>

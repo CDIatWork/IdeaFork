@@ -1,0 +1,11 @@
+.infobox {
+    background-color: #F4F8FA;
+    border: 1px solid #d1d1d1;
+    border-left: 3px solid #5BC0DE;
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.panel {
+    background: #fafafa !important;
+}

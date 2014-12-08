@@ -17,6 +17,17 @@
         <tomee-api.version>6.0-6</tomee-api.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>relative-resource-handler</id>
+            <url>https://raw.githubusercontent.com/CDIatWork/relative-resource-handler/master/m2-repository/</url>
+        </repository>
+        <repository>
+            <id>ds-jsf-dev-addon</id>
+            <url>https://raw.githubusercontent.com/CDIatWork/ds-jsf-addon/master/m2-repository/</url>
+        </repository>
+    </repositories>
+
     <build>
         <finalName>IdeaFork_EE6</finalName>
         <plugins>
@@ -51,6 +62,12 @@
             <artifactId>myfaces-api</artifactId>
             <version>${myfaces-core.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apacheextras.myfaces</groupId>
+            <artifactId>relative-resource-handler</artifactId>
+            <version>0.9.2</version>
         </dependency>
     </dependencies>
 
