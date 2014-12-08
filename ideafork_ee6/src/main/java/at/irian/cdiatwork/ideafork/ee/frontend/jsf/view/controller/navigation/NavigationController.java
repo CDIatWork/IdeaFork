@@ -6,6 +6,14 @@ import javax.inject.Named;
 @Named
 @ApplicationScoped
 public class NavigationController {
+    public String toNewIdea() {
+        return "/pages/idea/create.xhtml";
+    }
+
+    public String toIdeaList() {
+        return "/pages/idea/list.xhtml";
+    }
+
     public String toIdeaImport() {
         return "/pages/import/upload.xhtml";
     }

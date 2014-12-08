@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/main-template.xhtml">
+
+    <ui:define name="page-events">
+        <f:event type="preRenderView" listener="#{ideaListViewCtrl.onPreRenderView}"/>
+    </ui:define>
+    <ui:define name="panel-title">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-list"/> My Ideas</h3>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:dataTable var="currentIdea" value="#{ideaListViewCtrl.ideaList}" styleClass="table">
+            <h:column>
+                <f:facet name="header">
+                    Topic
+                </f:facet>
+                #{currentIdea.topic}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Category
+                </f:facet>
+                #{currentIdea.category}
+            </h:column>
+            <h:column>
+                <h:commandLink id="lnkShow" styleClass="btn" action="#{ideaDetailsViewCtrl.showIdea(currentIdea)}">
+                    <span class="glyphicon glyphicon-eye-open"/>
+                </h:commandLink>
+                <h:commandLink id="lnkForkIdea" styleClass="btn" action="#{ideaForkViewCtrl.forkIdea(currentIdea)}">
+                    <span class="glyphicon glyphicon-share-alt"/>
+                </h:commandLink>
+                <h:commandLink id="lnkEditIdea" styleClass="btn" action="#{ideaEditViewCtrl.editIdea(currentIdea)}">
+                    <span class="glyphicon glyphicon-edit"/>
+                </h:commandLink>
+                <h:commandLink id="lnkDeleteIdea" styleClass="btn" action="#{ideaListViewCtrl.deleteIdea(currentIdea)}">
+                    <span class="glyphicon glyphicon-trash"/>
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
+    </ui:define>
+</ui:composition>

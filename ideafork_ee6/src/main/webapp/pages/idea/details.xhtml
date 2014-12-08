@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:my="http://java.sun.com/jsf/composite/custom"
+                template="/templates/main-template.xhtml">
+
+    <ui:define name="panel-title">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-edit"/> Idea Details</h3>
+    </ui:define>
+
+    <ui:define name="content">
+        <my:formGroup base="#{ideaDetailsViewCtrl.currentIdea}" property="topic" label="Topic" readonly="true"/>
+        <my:formGroup base="#{ideaDetailsViewCtrl.currentIdea}" property="category" label="Category" readonly="true"/>
+        <my:formGroup base="#{ideaDetailsViewCtrl.currentIdea}" property="description" label="Description" readonly="true" multiline="true"/>
+
+        <h:commandButton class="btn btn-default" value="Back"
+                         action="#{ideaDetailsViewCtrl.back}"/>
+        <h:commandLink class="btn" value="Original idea"
+                       action="#{ideaDetailsViewCtrl.showOriginal}"
+                       rendered="#{ideaDetailsViewCtrl.currentIdea.baseIdeaId ne null}"/>
+    </ui:define>
+</ui:composition>

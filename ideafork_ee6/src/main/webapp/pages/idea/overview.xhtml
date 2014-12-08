@@ -8,6 +8,14 @@
     </ui:define>
 
     <ui:define name="content">
+        <h:commandLink id="lnkNewIdea" styleClass="btn" action="#{navigationController.toNewIdea}">
+            <span class="glyphicon glyphicon-file"/> Add Idea
+        </h:commandLink>
+
+        <h:commandLink id="lnkIdeaList" styleClass="btn" action="#{navigationController.toIdeaList}">
+            <span class="glyphicon glyphicon-list"/> Show My Ideas
+        </h:commandLink>
+
         <h:commandLink id="lnkIdeaImport" styleClass="btn" action="#{navigationController.toIdeaImport}">
             <span class="glyphicon glyphicon-import"/> Import Ideas
         </h:commandLink>

@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:my="http://java.sun.com/jsf/composite/custom"
+                template="/templates/main-template.xhtml">
+
+    <ui:define name="panel-title">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-file"/> Create Idea</h3>
+    </ui:define>
+
+    <ui:define name="content">
+        <my:formGroup base="#{ideaCreateViewCtrl}" property="topic" label="Topic"/>
+        <my:formGroup base="#{ideaCreateViewCtrl}" property="category" label="Category"/>
+        <my:formGroup base="#{ideaCreateViewCtrl}" property="description" label="Description" multiline="true"/>
+
+        <h:commandButton class="btn btn-default" value="Save"
+                         action="#{ideaCreateViewCtrl.save}"/>
+        <h:commandLink class="btn" value="Cancel" immediate="true"
+                       action="#{menuBean.start}"/>
+    </ui:define>
+</ui:composition>
