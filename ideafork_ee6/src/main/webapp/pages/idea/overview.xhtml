@@ -1,4 +1,5 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/templates/main-template.xhtml">
 
@@ -7,5 +8,8 @@
     </ui:define>
 
     <ui:define name="content">
+        <h:commandLink id="lnkIdeaImport" styleClass="btn" action="#{navigationController.toIdeaImport}">
+            <span class="glyphicon glyphicon-import"/> Import Ideas
+        </h:commandLink>
     </ui:define>
 </ui:composition>

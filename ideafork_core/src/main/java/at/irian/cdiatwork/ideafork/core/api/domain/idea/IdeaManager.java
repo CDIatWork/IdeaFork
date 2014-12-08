@@ -37,6 +37,25 @@ public class IdeaManager implements IdeaRepository {
         return result;
     }
 
+    public Idea importIdea(User user, String ideaString) {
+        if (ideaString == null) {
+            throw new IllegalArgumentException("No idea to import");
+        }
+
+        String[] ideaToImport = ideaString.split(";");
+
+        if (ideaToImport.length >= 2) {
+            Idea newIdea = new Idea(ideaToImport[0], ideaToImport[1], user);
+
+            if (ideaToImport.length == 3) {
+                newIdea.setDescription(ideaToImport[2]);
+            }
+            save(newIdea);
+            return newIdea;
+        }
+        throw new IllegalArgumentException("invalid idea to import: " + ideaString);
+    }
+
     @Override
     public void save(Idea entity) {
         ideaRepository.save(entity);

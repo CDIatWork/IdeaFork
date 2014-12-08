@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/main-template.xhtml">
+
+    <ui:define name="panel-title">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-log-in"/> Import Summary</h3>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:panelGroup layout="block" rendered="#{importSummary.importedIdeaAvailable}">
+            <h3>Imported</h3>
+            <h:dataTable var="imported" value="#{importSummary.importedIdeas}">
+                <h:column>
+                    #{imported.topic}
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
+        <h:panelGroup layout="block" rendered="#{importSummary.failedIdeaAvailable}">
+            <h3>Failed</h3>
+            <h:dataTable var="failedImport" value="#{importSummary.failedImports}">
+                <h:column>
+                    #{failedImport}
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
+    </ui:define>
+</ui:composition>

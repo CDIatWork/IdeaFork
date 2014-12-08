@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/templates/main-template.xhtml">
+
+    <ui:define name="content-container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-upload"/> Import Ideas</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data" action="#{jsf.contextPath}/idea/import">
+                    <div class="form-group">
+                        <input type="file" name="file" data-filename-placement="inside"/><br/>
+                        <input type="submit" value="upload" class="btn btn-default" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
