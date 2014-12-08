@@ -35,4 +35,9 @@ public class UserRepositoryDecorator extends GenericRepositoryDecorator<User>
     public User loadByEmail(String email) {
         return delegate.loadByEmail(email);
     }
+
+    @Override
+    public User loadByNickName(String nickName) {
+        return delegate.loadByNickName(nickName);
+    }
 }

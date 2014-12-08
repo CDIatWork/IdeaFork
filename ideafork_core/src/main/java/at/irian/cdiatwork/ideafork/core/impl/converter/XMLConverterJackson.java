@@ -24,6 +24,11 @@ public class XMLConverterJackson implements ObjectConverter {
 
     @Override
     public String toString(Object entity) {
+        return toString(entity, null);
+    }
+
+    @Override
+    public String toString(Object entity, Class typeSafeDataView) {
         try {
             return new XmlMapper().writeValueAsString(entity);
         } catch (JsonProcessingException e) {

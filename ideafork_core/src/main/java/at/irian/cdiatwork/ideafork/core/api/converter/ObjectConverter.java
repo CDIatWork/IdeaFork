@@ -4,4 +4,6 @@ public interface ObjectConverter {
     <T> T toObject(String value, Class<T> targetType);
 
     String toString(Object entity);
+
+    String toString(Object entity, Class typeSafeDataView);
 }

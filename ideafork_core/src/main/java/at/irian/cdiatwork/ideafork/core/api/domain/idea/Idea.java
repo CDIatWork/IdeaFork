@@ -1,7 +1,9 @@
 package at.irian.cdiatwork.ideafork.core.api.domain.idea;
 
+import at.irian.cdiatwork.ideafork.core.api.data.view.ExportView;
 import at.irian.cdiatwork.ideafork.core.api.domain.BaseEntity;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -41,6 +43,7 @@ public class Idea extends BaseEntity {
      * generated
      */
 
+    @JsonView(ExportView.Public.class)
     public String getTopic() {
         return topic;
     }
@@ -49,6 +52,7 @@ public class Idea extends BaseEntity {
         this.topic = topic;
     }
 
+    @JsonView(ExportView.Public.class)
     public String getCategory() {
         return category;
     }
@@ -57,6 +61,7 @@ public class Idea extends BaseEntity {
         this.category = category;
     }
 
+    @JsonView(ExportView.Public.class)
     public String getDescription() {
         return description;
     }
@@ -73,13 +78,10 @@ public class Idea extends BaseEntity {
         return baseIdeaVersion;
     }
 
+    @JsonView(ExportView.Public.class)
     public User getAuthor() {
         return author;
     }
-
-    /*
-     * generated
-     */
 
     @Override
     public boolean equals(Object o) {

@@ -3,6 +3,7 @@ package at.irian.cdiatwork.ideafork.core.impl.converter;
 import at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.core.api.converter.ObjectConverter;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExternalFormat(ExternalFormat.TargetFormat.JSON)
@@ -19,8 +20,18 @@ public class JSONConverterJackson implements ObjectConverter {
 
     @Override
     public String toString(Object entity) {
+        return toString(entity, null);
+    }
+
+    @Override
+    public String toString(Object entity, Class typeSafeDataView) {
         try {
-            return new ObjectMapper().writeValueAsString(entity);
+            ObjectMapper objectMapper = new ObjectMapper();
+            if (typeSafeDataView != null) {
+                objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false);
+                return objectMapper.writerWithView(typeSafeDataView).writeValueAsString(entity);
+            }
+            return objectMapper.writeValueAsString(entity);
         } catch (JsonProcessingException e) {
             throw new IllegalArgumentException(e);
         }

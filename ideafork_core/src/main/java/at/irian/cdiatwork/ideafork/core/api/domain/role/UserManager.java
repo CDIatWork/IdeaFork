@@ -41,4 +41,9 @@ public class UserManager implements UserRepository {
     public User loadByEmail(String email) {
         return userRepository.loadByEmail(email);
     }
+
+    @Override
+    public User loadByNickName(String nickName) {
+        return userRepository.loadByNickName(nickName);
+    }
 }

@@ -19,6 +19,11 @@ public class JSONConverter implements ObjectConverter {
 
     @Override
     public String toString(Object entity) {
+        return toString(entity, null);
+    }
+
+    @Override
+    public String toString(Object entity, Class typeSafeDataView) {
         return new Gson().toJson(entity);
     }
 }

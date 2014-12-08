@@ -19,4 +19,15 @@ public class UserInMemoryRepository extends GenericInMemoryRepository<User> impl
 
         return null;
     }
+
+    @Override
+    public User loadByNickName(String nickName) {
+        for (User currentUser : entityMap.values()) {
+            if (currentUser.getNickName().equals(nickName)) {
+                return currentUser;
+            }
+        }
+
+        return null;
+    }
 }

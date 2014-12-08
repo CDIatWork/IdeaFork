@@ -21,6 +21,11 @@ public class XMLConverter implements ObjectConverter {
 
     @Override
     public String toString(Object entity) {
+        return toString(entity, null);
+    }
+
+    @Override
+    public String toString(Object entity, Class typeSafeDataView) {
         StringWriter output = new StringWriter();
         JAXB.marshal(entity, output);
         return output.toString();

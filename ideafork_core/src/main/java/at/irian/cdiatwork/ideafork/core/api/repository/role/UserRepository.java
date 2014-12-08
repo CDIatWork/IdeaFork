@@ -5,4 +5,6 @@ import at.irian.cdiatwork.ideafork.core.api.repository.GenericRepository;
 
 public interface UserRepository extends GenericRepository<User> {
     User loadByEmail(String email);
+
+    User loadByNickName(String nickName);
 }

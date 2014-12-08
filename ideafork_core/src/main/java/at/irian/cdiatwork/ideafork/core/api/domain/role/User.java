@@ -1,6 +1,8 @@
 package at.irian.cdiatwork.ideafork.core.api.domain.role;
 
+import at.irian.cdiatwork.ideafork.core.api.data.view.ExportView;
 import at.irian.cdiatwork.ideafork.core.api.domain.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,6 +28,7 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
+    @JsonView(ExportView.Public.class)
     public String getNickName() {
         return nickName;
     }

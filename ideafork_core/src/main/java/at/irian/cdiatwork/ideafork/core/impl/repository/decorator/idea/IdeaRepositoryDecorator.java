@@ -2,6 +2,7 @@ package at.irian.cdiatwork.ideafork.core.impl.repository.decorator.idea;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaChangedEvent;
+import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.core.api.repository.idea.IdeaRepository;
 import at.irian.cdiatwork.ideafork.core.impl.repository.decorator.GenericRepositoryDecorator;
 
@@ -9,6 +10,7 @@ import javax.decorator.Decorator;
 import javax.decorator.Delegate;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import java.util.List;
 
 @Decorator
 public class IdeaRepositoryDecorator extends GenericRepositoryDecorator<Idea>
@@ -29,5 +31,10 @@ public class IdeaRepositoryDecorator extends GenericRepositoryDecorator<Idea>
     @Override
     protected void fireEntityChangedEvent(Idea entity) {
         this.entityChangedEvent.fire(new IdeaChangedEvent(entity));
+    }
+
+    @Override
+    public List<Idea> loadAllOfAuthor(User author) {
+        return delegate.loadAllOfAuthor(author);
     }
 }

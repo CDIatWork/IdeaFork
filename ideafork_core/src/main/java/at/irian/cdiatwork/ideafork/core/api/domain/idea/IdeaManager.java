@@ -7,6 +7,7 @@ import at.irian.cdiatwork.ideafork.core.api.repository.idea.IdeaRepository;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Typed;
 import javax.inject.Inject;
+import java.util.List;
 
 @ApplicationScoped
 @Typed(IdeaManager.class)
@@ -69,5 +70,10 @@ public class IdeaManager implements IdeaRepository {
     @Override
     public Idea loadById(String id) {
         return ideaRepository.loadById(id);
+    }
+
+    @Override
+    public List<Idea> loadAllOfAuthor(User author) {
+        return ideaRepository.loadAllOfAuthor(author);
     }
 }
