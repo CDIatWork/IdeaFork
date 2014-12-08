@@ -30,4 +30,9 @@ public class UserRepositoryDecorator extends GenericRepositoryDecorator<User>
     protected void fireEntityChangedEvent(User entity) {
         this.entityChangedEvent.fire(new UserChangedEvent(entity));
     }
+
+    @Override
+    public User loadByEmail(String email) {
+        return delegate.loadByEmail(email);
+    }
 }

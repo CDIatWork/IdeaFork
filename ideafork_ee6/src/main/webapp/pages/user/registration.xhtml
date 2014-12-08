@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:my="http://java.sun.com/jsf/composite/custom"
+                template="/templates/main-template.xhtml">
+
+    <ui:define name="panel-title">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-pencil"/> Registration</h3>
+    </ui:define>
+
+    <ui:define name="content">
+        <my:formGroup base="#{registrationViewCtrl.newUser}" property="nickName" label="Nick-name"/>
+        <my:formGroup base="#{registrationViewCtrl.newUser}" property="firstName" label="First-name"/>
+        <my:formGroup base="#{registrationViewCtrl.newUser}" property="lastName" label="Last-name"/>
+        <my:formGroup base="#{registrationViewCtrl.newUser}" property="email" label="E-Mail"/>
+        <my:formGroup base="#{registrationViewCtrl.newUser}" property="password" label="Password" secret="true"/>
+
+        <h:commandButton class="btn btn-default" value="Register"
+                         action="#{registrationViewCtrl.register}"/>
+    </ui:define>
+</ui:composition>

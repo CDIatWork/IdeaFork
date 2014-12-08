@@ -1,4 +1,4 @@
-package at.irian.cdiatwork.ideafork.ee.frontend;
+package at.irian.cdiatwork.ideafork.ee.shared;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 

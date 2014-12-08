@@ -26,7 +26,7 @@ public class FieldInjectionTest {
         final String category = "Education";
         final String description = "Hello Field-Injection!";
 
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
         Idea newIdea = this.ideaManager.createIdeaFor(topic, category, author);
         newIdea.setDescription(description);
 

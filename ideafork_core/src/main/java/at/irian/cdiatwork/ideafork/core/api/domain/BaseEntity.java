@@ -62,7 +62,10 @@ public abstract class BaseEntity implements Serializable {
 
         BaseEntity that = (BaseEntity) o;
 
-        if (!id.equals(that.id)) return false;
+        //only compare the id if the entity is persistent
+        if (!isTransient()) {
+            if (!id.equals(that.id)) return false;
+        }
         if (version != null ? !version.equals(that.version) : that.version != null) return false;
 
         return true;

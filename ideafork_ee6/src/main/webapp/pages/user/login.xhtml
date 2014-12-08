@@ -1,0 +1,19 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:my="http://java.sun.com/jsf/composite/custom"
+                template="/templates/main-template.xhtml">
+
+    <ui:define name="panel-title">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-log-in"/> Login</h3>
+    </ui:define>
+
+    <ui:define name="content">
+        <my:formGroup base="#{loginViewCtrl}" property="email" label="E-Mail"/>
+        <my:formGroup base="#{loginViewCtrl}" property="password" label="Password" secret="true"/>
+        <h:commandButton class="btn btn-default" value="Login"
+                         action="#{loginViewCtrl.login}"/>
+        <h:commandLink class="btn" value="Register"
+                       action="#{menuBean.register}" immediate="true"/>
+    </ui:define>
+</ui:composition>

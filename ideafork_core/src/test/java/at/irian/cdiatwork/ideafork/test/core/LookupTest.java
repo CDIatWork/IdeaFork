@@ -67,7 +67,7 @@ public class LookupTest {
 
     @Test
     public void jsonConversion() {
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
         Idea exportedIdea = ideaManager.createIdeaFor(topic, category, author);
         exportedIdea.setDescription(description);
 
@@ -83,7 +83,7 @@ public class LookupTest {
 
     @Test
     public void xmlConversion() {
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
         Idea exportedIdea = ideaManager.createIdeaFor(topic, category, author);
         exportedIdea.setDescription(description);
 
@@ -124,7 +124,7 @@ public class LookupTest {
         Assert.assertFalse(converterInstance.isUnsatisfied());
 
         int count = 0;
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
 
         for (ObjectConverter converter : converterInstance) {
             Idea ideaToExport = ideaManager.createIdeaFor(topic, category, author);

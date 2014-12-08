@@ -1,6 +1,6 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.menu;
 
-import at.irian.cdiatwork.ideafork.ee.frontend.ActiveUserHolder;
+import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
 
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;

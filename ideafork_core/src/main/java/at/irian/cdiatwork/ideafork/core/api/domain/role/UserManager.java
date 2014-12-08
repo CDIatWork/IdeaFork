@@ -1,6 +1,7 @@
 package at.irian.cdiatwork.ideafork.core.api.domain.role;
 
 import at.irian.cdiatwork.ideafork.core.api.repository.role.UserRepository;
+import at.irian.cdiatwork.ideafork.core.api.security.PasswordManager;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Typed;
@@ -14,8 +15,11 @@ public class UserManager implements UserRepository {
     @Inject
     private UserRepository userRepository;
 
-    public User createUserFor(String nickName, String email) {
-        return new User(nickName, email);
+    @Inject
+    private PasswordManager passwordManager;
+
+    public User createUserFor(String nickName, String email, String password) {
+        return new User(nickName, email, passwordManager.createPasswordHash(password));
     }
 
     @Override
@@ -31,5 +35,10 @@ public class UserManager implements UserRepository {
     @Override
     public User loadById(String id) {
         return userRepository.loadById(id);
+    }
+
+    @Override
+    public User loadByEmail(String email) {
+        return userRepository.loadByEmail(email);
     }
 }

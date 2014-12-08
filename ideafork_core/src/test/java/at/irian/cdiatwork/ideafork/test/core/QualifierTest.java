@@ -38,7 +38,7 @@ public class QualifierTest {
 
     @Test
     public void jsonConversion() {
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
         Idea exportedIdea = ideaManager.createIdeaFor(topic, category, author);
         exportedIdea.setDescription(description);
 
@@ -51,7 +51,7 @@ public class QualifierTest {
 
     @Test
     public void xmlConversion() {
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
         Idea exportedIdea = ideaManager.createIdeaFor(topic, category, author);
         exportedIdea.setDescription(description);
 
@@ -64,7 +64,7 @@ public class QualifierTest {
 
     @Test
     public void exportToJson() {
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
         Idea newIdea = ideaManager.createIdeaFor(topic, category, author);
         newIdea.setDescription(description);
 
@@ -81,7 +81,7 @@ public class QualifierTest {
 
     @Test
     public void exportToXml() {
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
         Idea newIdea = ideaManager.createIdeaFor(topic, category, author);
         newIdea.setDescription(description);
 

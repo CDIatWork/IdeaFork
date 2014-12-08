@@ -30,7 +30,7 @@ public class InterceptorTest {
 
     @Test
     public void normalMethodInvocation() {
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
         this.ideaManager.createIdeaFor("", "", author);
         Assert.assertTrue(monitoredStorage.getSlowMethods().isEmpty());
     }
@@ -40,7 +40,7 @@ public class InterceptorTest {
         TestMonitoredInterceptorStrategy.activateTestMode(true);
         Assert.assertTrue(monitoredStorage.getSlowMethods().isEmpty());
 
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
         this.ideaManager.createIdeaFor("", "", author);
         Assert.assertFalse(monitoredStorage.getSlowMethods().isEmpty());
     }

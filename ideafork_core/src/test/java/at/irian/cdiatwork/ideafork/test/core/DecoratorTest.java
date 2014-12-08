@@ -36,7 +36,7 @@ public class DecoratorTest {
         Assert.assertNotNull(this.ideaManager);
         Assert.assertNotNull(this.userManager);
 
-        User author = this.userManager.createUserFor("os890", null);
+        User author = this.userManager.createUserFor("os890", null, "test");
         this.userManager.save(author);
         author = this.userManager.loadById(author.getId());
 

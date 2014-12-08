@@ -28,7 +28,7 @@ public class EventTest {
 
     @Test
     public void eventDelivery() {
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
         Idea newIdea = this.ideaManager.createIdeaFor("Learn CDI-Events", "Education", author);
 
         Assert.assertFalse(this.ideaSavedObserver.isEventObserved());
@@ -38,7 +38,7 @@ public class EventTest {
 
     @Test
     public void conditionalEventDelivery() {
-        User author = userManager.createUserFor("os890", null);
+        User author = userManager.createUserFor("os890", null, "test");
         Idea newIdea = this.ideaManager.createIdeaFor("Learn conditional CDI-Events", "Education", author);
 
         Assert.assertFalse(this.ideaSavedObserver.isEventObserved());

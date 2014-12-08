@@ -29,6 +29,16 @@
                             </h:commandLink>
                         </li>
                     </ul>
+                    <ul id="desktopNav2" class="nav navbar-nav navbar-right">
+                        <li>
+                            <h:commandLink id="lnkLogin" action="#{menuBean.login}" immediate="true" rendered="#{!activeUserHolder.loggedIn}">
+                                <span class="glyphicon glyphicon-log-in"/> <span style="font-weight: bold;"> Login</span>
+                            </h:commandLink>
+                            <h:commandLink id="lnkLogout" action="#{menuBean.logout}" immediate="true" rendered="#{activeUserHolder.loggedIn}">
+                                <span class="glyphicon glyphicon-log-out"/> <span style="font-weight: bold;"> Logout</span>
+                            </h:commandLink>
+                        </li>
+                    </ul>
                 </h:form>
             </div>
         </div>
