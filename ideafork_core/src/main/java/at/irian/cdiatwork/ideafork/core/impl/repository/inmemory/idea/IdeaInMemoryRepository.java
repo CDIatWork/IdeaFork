@@ -24,4 +24,16 @@ public class IdeaInMemoryRepository extends GenericInMemoryRepository<Idea> impl
         }
         return result;
     }
+
+    @Override
+    public List<Idea> search(String searchText) {
+        List<Idea> result = new ArrayList<Idea>();
+
+        for (Idea idea : loadAll()) {
+            if (idea.getTopic().contains(searchText) || idea.getDescription().contains(searchText)) {
+                result.add(idea);
+            }
+        }
+        return result;
+    }
 }

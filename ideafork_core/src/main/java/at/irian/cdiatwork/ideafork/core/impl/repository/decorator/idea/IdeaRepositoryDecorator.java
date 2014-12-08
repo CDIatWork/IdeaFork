@@ -37,4 +37,9 @@ public class IdeaRepositoryDecorator extends GenericRepositoryDecorator<Idea>
     public List<Idea> loadAllOfAuthor(User author) {
         return delegate.loadAllOfAuthor(author);
     }
+
+    @Override
+    public List<Idea> search(String searchText) {
+        return delegate.search(searchText);
+    }
 }

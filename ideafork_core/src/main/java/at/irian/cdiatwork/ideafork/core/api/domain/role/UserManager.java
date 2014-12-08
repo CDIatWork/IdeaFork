@@ -6,6 +6,7 @@ import at.irian.cdiatwork.ideafork.core.api.security.PasswordManager;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Typed;
 import javax.inject.Inject;
+import java.util.List;
 
 @ApplicationScoped
 @Typed(UserManager.class)
@@ -45,5 +46,10 @@ public class UserManager implements UserRepository {
     @Override
     public User loadByNickName(String nickName) {
         return userRepository.loadByNickName(nickName);
+    }
+
+    @Override
+    public List<User> loadAll() {
+        return userRepository.loadAll();
     }
 }

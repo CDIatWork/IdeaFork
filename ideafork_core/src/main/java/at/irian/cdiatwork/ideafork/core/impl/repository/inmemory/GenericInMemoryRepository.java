@@ -4,6 +4,8 @@ import at.irian.cdiatwork.ideafork.core.api.domain.BaseEntity;
 import at.irian.cdiatwork.ideafork.core.api.repository.GenericRepository;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -30,6 +32,17 @@ public abstract class GenericInMemoryRepository<T extends BaseEntity> implements
             detachedEntity = clone(originalEntity);
         }
         return detachedEntity;
+    }
+
+    @Override
+    public List<T> loadAll() {
+        List<T> result = new ArrayList<T>();
+
+        for (T currentEntity : this.entityMap.values())
+        {
+            result.add(clone(currentEntity));
+        }
+        return result;
     }
 
     public static <T> T clone(T source) {

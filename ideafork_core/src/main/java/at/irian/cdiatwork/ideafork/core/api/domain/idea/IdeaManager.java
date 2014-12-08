@@ -57,6 +57,13 @@ public class IdeaManager implements IdeaRepository {
         throw new IllegalArgumentException("invalid idea to import: " + ideaString);
     }
 
+
+    @Monitored(maxThreshold = 10)
+    public Idea forkIdea(Idea originalIdea, User author) {
+        Idea result = new Idea(originalIdea, author);
+        return result;
+    }
+
     @Override
     public void save(Idea entity) {
         ideaRepository.save(entity);
@@ -75,5 +82,15 @@ public class IdeaManager implements IdeaRepository {
     @Override
     public List<Idea> loadAllOfAuthor(User author) {
         return ideaRepository.loadAllOfAuthor(author);
+    }
+
+    @Override
+    public List<Idea> loadAll() {
+        return ideaRepository.loadAll();
+    }
+
+    @Override
+    public List<Idea> search(String searchText) {
+        return ideaRepository.search(searchText);
     }
 }

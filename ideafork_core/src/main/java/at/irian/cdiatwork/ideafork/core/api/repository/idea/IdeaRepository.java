@@ -9,4 +9,6 @@ import java.util.List;
 public interface IdeaRepository extends GenericRepository<Idea> {
 
     List<Idea> loadAllOfAuthor(User author);
+
+    List<Idea> search(String searchText);
 }

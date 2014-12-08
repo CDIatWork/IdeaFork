@@ -3,6 +3,8 @@ package at.irian.cdiatwork.ideafork.core.impl.repository.decorator;
 import at.irian.cdiatwork.ideafork.core.api.domain.BaseEntity;
 import at.irian.cdiatwork.ideafork.core.api.repository.GenericRepository;
 
+import java.util.List;
+
 public abstract class GenericRepositoryDecorator<T extends BaseEntity> implements GenericRepository<T> {
 
     protected abstract GenericRepository<T> getDelegate();
@@ -30,6 +32,11 @@ public abstract class GenericRepositoryDecorator<T extends BaseEntity> implement
             throw new IllegalArgumentException("'null' as id isn't allowed");
         }
         return getDelegate().loadById(id);
+    }
+
+    @Override
+    public List<T> loadAll() {
+        return getDelegate().loadAll();
     }
 
     private void checkEntity(T entity) {
