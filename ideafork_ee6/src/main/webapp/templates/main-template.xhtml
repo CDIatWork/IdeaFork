@@ -54,6 +54,21 @@
                     </div>
                 </div>
             </ui:insert>
+            <ui:insert name="message-container">
+                <h:panelGroup layout="block" class="panel" rendered="#{messageController.globalMessageAvailable}">
+                    <div>
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-inbox"/> Messages</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h:messages globalOnly="true"
+                                        infoStyle="color: dodgerblue" warnStyle="color: orange"
+                                        errorStyle="color: red" fatalStyle="color: darkred"
+                                        style="list-style-type: none;"/>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </ui:insert>
         </div>
     </ui:insert>
 
