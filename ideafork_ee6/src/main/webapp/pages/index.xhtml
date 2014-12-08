@@ -3,6 +3,10 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="/templates/main-template.xhtml">
+    <ui:define name="page-events">
+        <f:event type="preRenderView" listener="#{indexViewCtrl.onPreRenderView}"/>
+    </ui:define>
+
     <ui:define name="content-container">
         <h:form>
             <div class="jumbotron" style="background-color: #F8F8F8;">
@@ -16,6 +20,27 @@
                     </ul>
                 </p>
             </div>
+
+            <h:panelGroup layout="block" styleClass="list-group" rendered="#{activeUserHolder.loggedIn and indexViewCtrl.categoryCount gt 0}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-pencil"/> New Idea</h3>
+
+                    </div>
+                    <div class="panel-body">
+                        <p>Quick-Selection of the most popular categories to start with a new idea:</p>
+                    </div>
+
+                    <div class="list-group">
+                        <ui:repeat var="currentCategoryView" value="#{indexViewCtrl.categories}">
+                            <h:commandLink action="#{ideaCreateViewCtrl.createWith(currentCategoryView.name)}" styleClass="list-group-item">
+                                <span class="badge pull-right">#{currentCategoryView.count}</span>
+                                #{currentCategoryView.name}
+                            </h:commandLink>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </h:panelGroup>
         </h:form>
 
         <div class="alert alert-warning alert-dismissable">

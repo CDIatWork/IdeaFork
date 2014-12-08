@@ -30,6 +30,11 @@ public class IdeaCreateViewCtrl implements Serializable {
         return "/pages/idea/overview.xhtml";
     }
 
+    public String createWith(String category) {
+        this.category = category;
+        return "/pages/idea/create.xhtml";
+    }
+
     /*
      * generated
      */

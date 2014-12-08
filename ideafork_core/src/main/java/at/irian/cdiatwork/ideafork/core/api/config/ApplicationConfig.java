@@ -11,6 +11,7 @@ public class ApplicationConfig {
     private ApplicationVersion applicationVersion; //just to illustrate a type-safe part as well
     private ExternalFormat.TargetFormat defaultExternalFormat;
     private int methodInvocationThreshold;
+    private int maxNumberOfHighestRatedCategories;
 
     protected ApplicationConfig() {
         //needed for creating a proxy
@@ -21,6 +22,7 @@ public class ApplicationConfig {
         this.applicationVersion = new ApplicationVersion(config.getString("version"));
         this.defaultExternalFormat = ExternalFormat.TargetFormat.valueOf(config.getString("defaultExternalFormat"));
         this.methodInvocationThreshold = Integer.parseInt(config.getString("methodInvocationThreshold"));
+        this.maxNumberOfHighestRatedCategories = Integer.parseInt(config.getString("maxNumberOfHighestRatedCategories"));
     }
 
     public String getApplicationName() {
@@ -37,6 +39,10 @@ public class ApplicationConfig {
 
     public int getMethodInvocationThreshold() {
         return methodInvocationThreshold;
+    }
+
+    public int getMaxNumberOfHighestRatedCategories() {
+        return maxNumberOfHighestRatedCategories;
     }
 
     public static class ApplicationVersion {

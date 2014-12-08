@@ -1,6 +1,7 @@
 package at.irian.cdiatwork.ideafork.core.api.domain.idea;
 
 import at.irian.cdiatwork.ideafork.core.api.monitoring.Monitored;
+import at.irian.cdiatwork.ideafork.core.api.data.view.CategoryView;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.core.api.repository.idea.IdeaRepository;
 
@@ -92,5 +93,10 @@ public class IdeaManager implements IdeaRepository {
     @Override
     public List<Idea> search(String searchText) {
         return ideaRepository.search(searchText);
+    }
+
+    @Override
+    public List<CategoryView> getHighestRatedCategories() {
+        return ideaRepository.getHighestRatedCategories();
     }
 }

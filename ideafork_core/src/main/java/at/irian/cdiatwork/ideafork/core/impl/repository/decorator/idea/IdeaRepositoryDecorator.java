@@ -1,5 +1,6 @@
 package at.irian.cdiatwork.ideafork.core.impl.repository.decorator.idea;
 
+import at.irian.cdiatwork.ideafork.core.api.data.view.CategoryView;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaChangedEvent;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
@@ -41,5 +42,10 @@ public class IdeaRepositoryDecorator extends GenericRepositoryDecorator<Idea>
     @Override
     public List<Idea> search(String searchText) {
         return delegate.search(searchText);
+    }
+
+    @Override
+    public List<CategoryView> getHighestRatedCategories() {
+        return delegate.getHighestRatedCategories();
     }
 }
