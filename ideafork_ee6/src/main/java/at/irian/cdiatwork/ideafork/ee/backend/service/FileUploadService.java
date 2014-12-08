@@ -1,11 +1,13 @@
-package at.irian.cdiatwork.ideafork.backend.service;
+package at.irian.cdiatwork.ideafork.ee.backend.service;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.ee.frontend.servlet.ImportSummary;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.ConcurrencyManagement;
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
 import java.io.BufferedReader;
@@ -14,7 +16,8 @@ import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-@ApplicationScoped
+@Singleton
+@ConcurrencyManagement(ConcurrencyManagementType.BEAN)
 public class FileUploadService {
     private static final Logger LOG = Logger.getLogger(FileUploadService.class.getName());
 

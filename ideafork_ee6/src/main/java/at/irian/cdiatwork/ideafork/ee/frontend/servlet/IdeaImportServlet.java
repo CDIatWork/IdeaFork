@@ -1,6 +1,6 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.servlet;
 
-import at.irian.cdiatwork.ideafork.backend.service.FileUploadService;
+import at.irian.cdiatwork.ideafork.ee.backend.service.FileUploadService;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
 
 import javax.inject.Inject;
