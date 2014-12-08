@@ -5,24 +5,37 @@ import at.irian.cdiatwork.ideafork.core.api.domain.BaseEntity;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
+@Entity
 @XmlRootElement //wouldn't be needed if we use jackson only
 public class Idea extends BaseEntity {
     private static final long serialVersionUID = -3824813959555007833L;
 
+    @Column(nullable = false)
     private String topic;
+
+    @Column(nullable = false)
     private String category; //specified by the user
+
+    @Column
     private String description;
 
     @XmlElementRef //wouldn't be needed if we use jackson only
+    @ManyToOne(optional = false)
     private User author;
 
+    @Column
     private String baseIdeaId;
+
+    @Column
     private Long baseIdeaVersion;
 
-    private Idea() {
+    protected Idea() {
         //needed for data-import
     }
 

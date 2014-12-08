@@ -1,17 +1,17 @@
-package at.irian.cdiatwork.ideafork.core.impl.repository.inmemory.idea;
+package at.irian.cdiatwork.ideafork.test.core.repository.inmemory.idea;
 
 import at.irian.cdiatwork.ideafork.core.api.config.ApplicationConfig;
 import at.irian.cdiatwork.ideafork.core.api.data.view.CategoryView;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.core.api.repository.idea.IdeaRepository;
-import at.irian.cdiatwork.ideafork.core.impl.repository.Repository;
-import at.irian.cdiatwork.ideafork.core.impl.repository.inmemory.GenericInMemoryRepository;
+import at.irian.cdiatwork.ideafork.test.core.repository.inmemory.GenericInMemoryRepository;
+import at.irian.cdiatwork.ideafork.test.core.repository.inmemory.MockedRepository;
 
 import javax.inject.Inject;
 import java.util.*;
 
-@Repository
+@MockedRepository
 public class IdeaInMemoryRepository extends GenericInMemoryRepository<Idea> implements IdeaRepository {
     private static final long serialVersionUID = -2577028101342086615L;
 

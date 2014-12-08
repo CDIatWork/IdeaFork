@@ -2,13 +2,21 @@ package at.irian.cdiatwork.ideafork.core.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
+import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.UUID;
 
+@MappedSuperclass
 public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = -7764878761692675990L;
 
+    @Id
     protected String id;
+
+    @Version
     protected Long version;
 
     public BaseEntity() {
@@ -16,6 +24,7 @@ public abstract class BaseEntity implements Serializable {
     }
 
     @JsonIgnore
+    @Transient
     public boolean isTransient() {
         return version == null;
     }

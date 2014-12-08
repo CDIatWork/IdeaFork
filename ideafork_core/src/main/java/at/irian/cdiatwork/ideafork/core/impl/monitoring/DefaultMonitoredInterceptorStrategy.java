@@ -59,15 +59,8 @@ public class DefaultMonitoredInterceptorStrategy implements MonitoredInterceptor
 
         result = targetClass.getAnnotation(Monitored.class);
 
-        //simplest logic for stereotypes
         if (result == null) {
-            for (Annotation annotation : targetClass.getAnnotations()) {
-                result = annotation.annotationType().getAnnotation(Monitored.class);
-
-                if (result != null) {
-                    return result;
-                }
-            }
+            return findAnnotation(beanManager, targetClass.getAnnotations(), Monitored.class);
         }
 
         return result;
@@ -75,5 +68,21 @@ public class DefaultMonitoredInterceptorStrategy implements MonitoredInterceptor
 
     protected boolean isSlowInvocation(long start, int maxThreshold) {
         return System.currentTimeMillis() - start > maxThreshold;
+    }
+
+    private static <T extends Annotation> T findAnnotation(
+            BeanManager beanManager, Annotation[] annotations, Class<T> targetAnnotationType) {
+        for (Annotation annotation : annotations) {
+            if (targetAnnotationType.equals(annotation.annotationType())) {
+                return (T) annotation;
+            }
+            if (beanManager.isStereotype(annotation.annotationType())) {
+                T result = findAnnotation(beanManager, annotation.annotationType().getAnnotations(), targetAnnotationType);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+        return null;
     }
 }

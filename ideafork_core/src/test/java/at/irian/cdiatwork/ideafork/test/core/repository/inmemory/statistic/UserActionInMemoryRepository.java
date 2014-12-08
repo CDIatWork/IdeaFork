@@ -1,15 +1,15 @@
-package at.irian.cdiatwork.ideafork.core.impl.repository.inmemory.statistic;
+package at.irian.cdiatwork.ideafork.test.core.repository.inmemory.statistic;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.core.api.domain.statistic.UserAction;
 import at.irian.cdiatwork.ideafork.core.api.repository.statistic.UserActionRepository;
-import at.irian.cdiatwork.ideafork.core.impl.repository.Repository;
-import at.irian.cdiatwork.ideafork.core.impl.repository.inmemory.GenericInMemoryRepository;
+import at.irian.cdiatwork.ideafork.test.core.repository.inmemory.GenericInMemoryRepository;
+import at.irian.cdiatwork.ideafork.test.core.repository.inmemory.MockedRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@MockedRepository
 public class UserActionInMemoryRepository extends GenericInMemoryRepository<UserAction> implements UserActionRepository {
     private static final long serialVersionUID = 2943122589188849100L;
 

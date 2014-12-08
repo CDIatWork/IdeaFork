@@ -25,7 +25,7 @@ public class IdeaHistoryProcessor {
         String ideaSnapshot = currentObjectConverter.toString(entity);
         EntityChange entityChange = new EntityChange(
                 entity.getId(),
-                entity.getVersion(),
+                entity.getVersion() != null ? entity.getVersion() : 0 /*needed for openjpa*/,
                 ideaSnapshot,
                 changedEvent.getCreationTimestamp());
 

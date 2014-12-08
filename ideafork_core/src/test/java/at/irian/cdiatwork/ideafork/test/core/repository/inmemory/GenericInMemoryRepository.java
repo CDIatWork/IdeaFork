@@ -1,4 +1,4 @@
-package at.irian.cdiatwork.ideafork.core.impl.repository.inmemory;
+package at.irian.cdiatwork.ideafork.test.core.repository.inmemory;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.BaseEntity;
 import at.irian.cdiatwork.ideafork.core.api.repository.GenericRepository;

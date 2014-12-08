@@ -4,18 +4,30 @@ import at.irian.cdiatwork.ideafork.core.api.data.view.ExportView;
 import at.irian.cdiatwork.ideafork.core.api.domain.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+@Table(name = "T_User")
+@Entity
 @XmlRootElement //wouldn't be needed if we use jackson only
 public class User extends BaseEntity {
     private static final long serialVersionUID = 621105763803952204L;
 
+    @Column
     private String nickName;
+
+    @Column
     private String email;
 
+    @Column
     private String password;
 
+    @Column
     private String firstName;
+
+    @Column
     private String lastName;
 
     public User() {
@@ -28,6 +40,9 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
+    /*
+     * generated
+     */
     @JsonView(ExportView.Public.class)
     public String getNickName() {
         return nickName;
