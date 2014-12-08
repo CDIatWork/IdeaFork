@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:my="http://java.sun.com/jsf/composite/custom"
+                template="/templates/main-template.xhtml">
+
+    <ui:define name="content-container">
+        <h:form>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-user"/> Profile</h3>
+                </div>
+                <div class="panel-body">
+                    <my:formGroup base="#{activeUserHolder.authenticatedUser}" property="nickName" label="Nick-name" readonly="true"/>
+                    <my:formGroup base="#{activeUserHolder.authenticatedUser}" property="firstName" label="First-name" readonly="true"/>
+                    <my:formGroup base="#{activeUserHolder.authenticatedUser}" property="lastName" label="Last-name" readonly="true"/>
+                    <my:formGroup base="#{activeUserHolder.authenticatedUser}" property="email" label="E-Mail" readonly="true"/>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-road"/> Activity</h3>
+                </div>
+                <div class="panel-body">
+                    <h:dataTable var="currentUserAction" value="#{profileViewCtrl.userActionList}" styleClass="table">
+                        <h:column>
+                            <f:facet name="header">
+                                Action
+                            </f:facet>
+                            #{currentUserAction.userAction}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Timestamp
+                            </f:facet>
+                            #{currentUserAction.createdAt}
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </div>
+
+            <h:commandButton class="btn btn-default" value="Back"
+                             action="#{menuBean.start}"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

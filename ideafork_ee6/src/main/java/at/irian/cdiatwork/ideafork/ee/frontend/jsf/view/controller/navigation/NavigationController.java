@@ -17,4 +17,8 @@ public class NavigationController {
     public String toIdeaImport() {
         return "/pages/import/upload.xhtml";
     }
+
+    public String toUserProfile() {
+        return "/pages/user/profile.xhtml";
+    }
 }

@@ -23,5 +23,9 @@
         <a href="#{jsf.contextPath}/public/idea/export/all" class="btn">
             <span class="glyphicon glyphicon-import"/> Export My Ideas
         </a>
+
+        <h:commandLink id="lnkUserProfile" styleClass="btn" action="#{navigationController.toUserProfile}">
+            <span class="glyphicon glyphicon-user"/> Show My Profile
+        </h:commandLink>
     </ui:define>
 </ui:composition>
