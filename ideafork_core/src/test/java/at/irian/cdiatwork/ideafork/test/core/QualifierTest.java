@@ -1,0 +1,122 @@
+package at.irian.cdiatwork.ideafork.test.core;
+
+import at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat;
+import at.irian.cdiatwork.ideafork.core.api.converter.ObjectConverter;
+import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
+import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
+import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
+import at.irian.cdiatwork.ideafork.core.api.domain.role.UserManager;
+import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
+
+import static at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat.TargetFormat.JSON;
+import static at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat.TargetFormat.XML;
+
+@RunWith(CdiTestRunner.class)
+public class QualifierTest {
+    private final String topic = "Learn CDI-Qualifiers";
+    private final String category = "Education";
+    private final String description = "Hello Qualifiers!";
+
+    @Inject
+    @ExternalFormat(JSON)
+    private ObjectConverter objectConverterJSON;
+
+    @Inject
+    @ExternalFormat(XML)
+    private ObjectConverter objectConverterXML;
+
+    @Inject
+    private IdeaManager ideaManager;
+
+    @Inject
+    private UserManager userManager;
+
+    @Test
+    public void jsonConversion() {
+        User author = userManager.createUserFor("os890", null);
+        Idea exportedIdea = ideaManager.createIdeaFor(topic, category, author);
+        exportedIdea.setDescription(description);
+
+        String jsonString = objectConverterJSON.toString(exportedIdea);
+
+        Idea importedIdea = objectConverterJSON.toObject(jsonString, Idea.class);
+
+        Assert.assertTrue(exportedIdea.equals(importedIdea));
+    }
+
+    @Test
+    public void xmlConversion() {
+        User author = userManager.createUserFor("os890", null);
+        Idea exportedIdea = ideaManager.createIdeaFor(topic, category, author);
+        exportedIdea.setDescription(description);
+
+        String xmlString = objectConverterXML.toString(exportedIdea);
+
+        Idea importedIdea = objectConverterXML.toObject(xmlString, Idea.class);
+
+        Assert.assertTrue(exportedIdea.equals(importedIdea));
+    }
+
+    @Test
+    public void exportToJson() {
+        User author = userManager.createUserFor("os890", null);
+        Idea newIdea = ideaManager.createIdeaFor(topic, category, author);
+        newIdea.setDescription(description);
+
+        String jsonString = objectConverterJSON.toString(newIdea);
+
+        Assert.assertTrue(jsonString.contains(topic));
+        Assert.assertTrue(jsonString.contains(category));
+        Assert.assertTrue(jsonString.contains(description));
+
+        Assert.assertTrue(jsonString.contains("topic"));
+        Assert.assertTrue(jsonString.contains("category"));
+        Assert.assertTrue(jsonString.contains("description"));
+    }
+
+    @Test
+    public void exportToXml() {
+        User author = userManager.createUserFor("os890", null);
+        Idea newIdea = ideaManager.createIdeaFor(topic, category, author);
+        newIdea.setDescription(description);
+
+        String xmlString = objectConverterXML.toString(newIdea);
+
+        Assert.assertTrue(xmlString.contains(topic));
+        Assert.assertTrue(xmlString.contains(category));
+        Assert.assertTrue(xmlString.contains(description));
+
+        Assert.assertTrue(xmlString.contains("<topic>"));
+        Assert.assertTrue(xmlString.contains("</topic>"));
+        Assert.assertTrue(xmlString.contains("<category>"));
+        Assert.assertTrue(xmlString.contains("</category>"));
+        Assert.assertTrue(xmlString.contains("<description>"));
+        Assert.assertTrue(xmlString.contains("</description>"));
+    }
+
+    @Test
+    public void importJson() {
+        String jsonString = "{\"topic\":\"" + topic + "\",\"category\":\"" + category + "\",\"description\":\"" + description + "\",\"id\":\"xyz\"}";
+
+        Idea idea = objectConverterJSON.toObject(jsonString, Idea.class);
+        Assert.assertEquals(topic, idea.getTopic());
+        Assert.assertEquals(category, idea.getCategory());
+        Assert.assertEquals(description, idea.getDescription());
+    }
+
+    @Test
+    public void importXml() {
+        String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
+                "<idea><id>xyz</id><topic>" + topic + "</topic><category>" + category + "</category><description>" + description + "</description></idea>";
+
+        Idea idea = objectConverterXML.toObject(xmlString, Idea.class);
+        Assert.assertEquals(topic, idea.getTopic());
+        Assert.assertEquals(category, idea.getCategory());
+        Assert.assertEquals(description, idea.getDescription());
+    }
+}
