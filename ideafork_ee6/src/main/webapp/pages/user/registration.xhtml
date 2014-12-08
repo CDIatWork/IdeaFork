@@ -9,7 +9,7 @@
     </ui:define>
 
     <ui:define name="content">
-        <my:formGroup base="#{registrationViewCtrl.newUser}" property="nickName" label="Nick-name"/>
+        <my:formGroup base="#{registrationViewCtrl.newUser}" property="nickName" label="Nick-name" validationGroup="at.irian.cdiatwork.ideafork.core.api.validation.UniqueUserName"/>
         <my:formGroup base="#{registrationViewCtrl.newUser}" property="firstName" label="First-name"/>
         <my:formGroup base="#{registrationViewCtrl.newUser}" property="lastName" label="Last-name"/>
         <my:formGroup base="#{registrationViewCtrl.newUser}" property="email" label="E-Mail"/>

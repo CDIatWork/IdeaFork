@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
 <cc:interface>
     <cc:attribute name="base" required="true"/>
     <cc:attribute name="property" required="true"/>
@@ -10,6 +11,7 @@
     <cc:attribute name="secret" required="false" default="false" type="java.lang.Boolean"/>
     <cc:attribute name="readonly" required="false" default="false" type="java.lang.Boolean"/>
     <cc:attribute name="multiline" required="false" default="false" type="java.lang.Boolean"/>
+    <cc:attribute name="validationGroup" required="false" default="javax.validation.groups.Default"/>
 </cc:interface>
 <cc:implementation>
     <div class="form-group">
@@ -17,16 +19,24 @@
 
         <c:choose>
             <c:when test="#{cc.attrs.secret}">
-                <h:inputSecret id="#{cc.attrs.property}" class="form-control" value="#{cc.attrs.base[cc.attrs.property]}" label="#{cc.attrs.label}"/>
+                <h:inputSecret id="#{cc.attrs.property}" class="form-control" value="#{cc.attrs.base[cc.attrs.property]}" label="#{cc.attrs.label}">
+                    <f:validateBean validationGroups="#{cc.attrs.validationGroup}"/>
+                </h:inputSecret>
             </c:when>
             <c:when test="#{cc.attrs.readonly and !cc.attrs.multiline}">
-                <h:inputText id="#{cc.attrs.property}" class="form-control" value="#{cc.attrs.base[cc.attrs.property]}" label="#{cc.attrs.label}" disabled="true"/>
+                <h:inputText id="#{cc.attrs.property}" class="form-control" value="#{cc.attrs.base[cc.attrs.property]}" label="#{cc.attrs.label}" disabled="true">
+                    <f:validateBean validationGroups="#{cc.attrs.validationGroup}"/>
+                </h:inputText>
             </c:when>
             <c:when test="#{cc.attrs.multiline}">
-                <h:inputTextarea id="#{cc.attrs.property}" class="form-control" value="#{cc.attrs.base[cc.attrs.property]}" label="#{cc.attrs.label}" disabled="#{cc.attrs.readonly}"/>
+                <h:inputTextarea id="#{cc.attrs.property}" class="form-control" value="#{cc.attrs.base[cc.attrs.property]}" label="#{cc.attrs.label}" disabled="#{cc.attrs.readonly}">
+                    <f:validateBean validationGroups="#{cc.attrs.validationGroup}"/>
+                </h:inputTextarea>
             </c:when>
             <c:otherwise>
-                <h:inputText id="#{cc.attrs.property}" class="form-control" value="#{cc.attrs.base[cc.attrs.property]}" label="#{cc.attrs.label}"/>
+                <h:inputText id="#{cc.attrs.property}" class="form-control" value="#{cc.attrs.base[cc.attrs.property]}" label="#{cc.attrs.label}">
+                    <f:validateBean validationGroups="#{cc.attrs.validationGroup}"/>
+                </h:inputText>
             </c:otherwise>
         </c:choose>
         <h:message for="#{cc.attrs.property}"

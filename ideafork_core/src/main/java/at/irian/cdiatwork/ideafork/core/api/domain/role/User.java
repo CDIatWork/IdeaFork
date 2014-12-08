@@ -2,6 +2,8 @@ package at.irian.cdiatwork.ideafork.core.api.domain.role;
 
 import at.irian.cdiatwork.ideafork.core.api.data.view.ExportView;
 import at.irian.cdiatwork.ideafork.core.api.domain.BaseEntity;
+import at.irian.cdiatwork.ideafork.core.api.validation.UniqueUserName;
+import at.irian.cdiatwork.ideafork.core.api.validation.UserName;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.Column;
@@ -16,6 +18,7 @@ public class User extends BaseEntity {
     private static final long serialVersionUID = 621105763803952204L;
 
     @Column
+    @UserName(groups = UniqueUserName.class)
     private String nickName;
 
     @Column
