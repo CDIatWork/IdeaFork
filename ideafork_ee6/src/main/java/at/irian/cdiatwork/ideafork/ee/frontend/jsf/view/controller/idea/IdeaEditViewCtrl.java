@@ -1,21 +1,18 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.idea;
 
+import at.irian.cdiatwork.ideafork.ee.backend.service.IdeaService;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
-import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.ViewController;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
 
-@Stateful
 @SessionScoped
 @ViewController
-//can be optimized via @TransactionAttribute and @Lock
 public class IdeaEditViewCtrl implements Serializable {
     @Inject
-    private IdeaManager ideaManager;
+    private IdeaService ideaService;
 
     private Idea currentIdea;
 
@@ -25,7 +22,7 @@ public class IdeaEditViewCtrl implements Serializable {
     }
 
     public String save() {
-        ideaManager.save(currentIdea);
+        ideaService.save(currentIdea);
         return "/pages/idea/list.xhtml";
     }
 

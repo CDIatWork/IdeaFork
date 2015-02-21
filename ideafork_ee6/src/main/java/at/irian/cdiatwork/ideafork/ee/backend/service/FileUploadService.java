@@ -5,9 +5,7 @@ import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.ee.frontend.servlet.ImportSummary;
 
-import javax.ejb.ConcurrencyManagement;
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
 import java.io.BufferedReader;
@@ -16,8 +14,7 @@ import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-@Singleton
-@ConcurrencyManagement(ConcurrencyManagementType.BEAN)
+@Stateless
 public class FileUploadService {
     private static final Logger LOG = Logger.getLogger(FileUploadService.class.getName());
 

@@ -5,14 +5,10 @@ import at.irian.cdiatwork.ideafork.core.api.domain.role.UserManager;
 import at.irian.cdiatwork.ideafork.core.api.security.PasswordManager;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
 
-import javax.ejb.ConcurrencyManagement;
-import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import static javax.ejb.ConcurrencyManagementType.BEAN;
-
-@Singleton
-@ConcurrencyManagement(BEAN)
+@Stateless
 public class UserService {
     @Inject
     private UserManager userManager;
