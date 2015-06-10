@@ -48,6 +48,7 @@
             <groupId>at.irian.cdiatwork</groupId>
             <artifactId>ideafork-core</artifactId>
             <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -58,17 +59,299 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${myfaces-core.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.apacheextras.myfaces</groupId>
             <artifactId>relative-resource-handler</artifactId>
             <version>0.9.2</version>
         </dependency>
     </dependencies>
 
+    <profiles>
+        <!-- EE profiles - just needed to provide a build for different target servers (with different jpa configs) -->
+        <profile>
+            <id>TomEE</id>
+            <!-- tested with v1.7.1 and v1.7.2 Plus -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <!-- tests of this module will get executed by a special test-profile -->
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <version>${myfaces-core.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>at.irian.cdiatwork</groupId>
+                    <artifactId>ideafork-core</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/ee-resources/tomee</directory>
+                        <includes>
+                            <include>persistence.xml</include>
+                        </includes>
+                        <targetPath>./META-INF</targetPath>
+                    </resource>
+
+                    <resource>
+                        <directory>src/main/resources/META-INF</directory>
+                        <includes>
+                            <include>relative-resources.xml</include>
+                            <include>services/javax.enterprise.inject.spi.Extension</include>
+                        </includes>
+                        <excludes>
+                            <exclude>persistence.xml</exclude>
+                        </excludes>
+                        <targetPath>./META-INF</targetPath>
+                    </resource>
+
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <includes>
+                            <include>**/*properties</include>
+                        </includes>
+                    </resource>
+
+                    <!-- copying from a different location is just needed to use a different file for GlassFish -->
+                    <resource>
+                        <directory>src/main/ee-resources/tomee</directory>
+                        <includes>
+                            <include>beans.xml</include>
+                        </includes>
+                        <targetPath>${project.build.directory}/${project.build.finalName}/WEB-INF</targetPath>
+                    </resource>
+                </resources>
+
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.10</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>JBoss</id>
+            <!-- tested with v7.1.1 -->
+
+            <!-- tests of this module will get executed by a special test-profile -->
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+
+            <!-- the special config regarding ideafork-core is just needed due to BDA issues with JBoss AS7 -->
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <version>${myfaces-core.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <!-- needed because we can't use ideafork-core as a direct dependency in case of JBoss AS7 -->
+                <dependency>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                    <version>2.3.1</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.fasterxml.jackson.dataformat</groupId>
+                    <artifactId>jackson-dataformat-xml</artifactId>
+                    <version>2.3.0</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/ee-resources/jboss</directory>
+                        <includes>
+                            <include>persistence.xml</include>
+                        </includes>
+                        <targetPath>./META-INF</targetPath>
+                    </resource>
+
+                    <resource>
+                        <directory>src/main/resources/META-INF</directory>
+                        <includes>
+                            <include>relative-resources.xml</include>
+                            <include>services/javax.enterprise.inject.spi.Extension</include>
+                        </includes>
+                        <excludes>
+                            <exclude>persistence.xml</exclude>
+                        </excludes>
+                        <targetPath>./META-INF</targetPath>
+                    </resource>
+
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <includes>
+                            <include>**/*properties</include>
+                        </includes>
+                    </resource>
+
+                    <resource>
+                        <!-- workaround needed for JBoss AS -->
+                        <directory>src/main/ee-resources/jboss</directory>
+                        <includes>
+                            <include>beans.xml</include>
+                        </includes>
+                        <targetPath>${project.build.directory}/${project.build.finalName}/WEB-INF</targetPath>
+                    </resource>
+                </resources>
+                <plugins>
+                    <!-- used instead of the direct dependency to ideafork-core, because we need a different beans.xml file for JBoss AS due to BDA issues -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>at.irian.cdiatwork</groupId>
+                                            <artifactId>ideafork-core</artifactId>
+                                            <version>${project.version}</version>
+                                            <type>jar</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+                                            <includes>**/*</includes>
+                                            <excludes>META-INF/beans.xml</excludes>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.10</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>GlassFish</id>
+            <!-- tested with v3.1.2.2 -->
+
+            <!-- tests of this module will get executed by a special test-profile -->
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+
+            <!-- the special config regarding ideafork-core is just needed due to BDA issues with GlassFish -->
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <version>${myfaces-core.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <!-- needed because we can't use ideafork-core as a direct dependency in case of GlassFish -->
+                <dependency>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                    <version>2.3.1</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.fasterxml.jackson.dataformat</groupId>
+                    <artifactId>jackson-dataformat-xml</artifactId>
+                    <version>2.3.0</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/ee-resources/glassfish3</directory>
+                        <includes>
+                            <include>persistence.xml</include>
+                        </includes>
+                        <targetPath>./META-INF</targetPath>
+                    </resource>
+
+                    <resource>
+                        <directory>src/main/resources/META-INF</directory>
+                        <includes>
+                            <include>relative-resources.xml</include>
+                            <include>services/javax.enterprise.inject.spi.Extension</include>
+                        </includes>
+                        <excludes>
+                            <exclude>persistence.xml</exclude>
+                        </excludes>
+                        <targetPath>./META-INF</targetPath>
+                    </resource>
+
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <includes>
+                            <include>**/*properties</include>
+                        </includes>
+                    </resource>
+
+                    <resource>
+                        <!-- workaround needed for GlassFish -->
+                        <directory>src/main/ee-resources/glassfish3</directory>
+                        <includes>
+                            <include>beans.xml</include>
+                        </includes>
+                        <targetPath>${project.build.directory}/${project.build.finalName}/WEB-INF</targetPath>
+                    </resource>
+                </resources>
+                <plugins>
+                    <!-- used instead of the direct dependency to ideafork-core, because we need a different beans.xml file for GlassFish due to BDA issues -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>at.irian.cdiatwork</groupId>
+                                            <artifactId>ideafork-core</artifactId>
+                                            <version>${project.version}</version>
+                                            <type>jar</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+                                            <includes>**/*</includes>
+                                            <excludes>META-INF/beans.xml</excludes>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.10</version>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

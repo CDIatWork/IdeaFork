@@ -24,25 +24,14 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
     <persistence-unit name="ideaForkPU" transaction-type="JTA" >
-        <!-- ExampleDS is needed by as7/wf8 -->
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
 
-        <class>at.irian.cdiatwork.ideafork.core.api.domain.BaseEntity</class>
-        <class>at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea</class>
-        <class>at.irian.cdiatwork.ideafork.core.api.domain.role.User</class>
-        <class>at.irian.cdiatwork.ideafork.core.api.domain.change.EntityChange</class>
-        <class>at.irian.cdiatwork.ideafork.core.api.domain.statistic.UserAction</class>
+        <mapping-file>META-INF/entities.xml</mapping-file>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
-            <property name="openjpa.DataCache" value="true"/>
-            <property name="openjpa.DynamicEnhancementAgent" value="true"/>
-            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
-            <property name="openjpa.jdbc.QuerySQLCache" value="true(EnableStatistics=true)"/>
-
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
         </properties>
-
     </persistence-unit>
 </persistence>
