@@ -1,7 +1,5 @@
 package at.irian.cdiatwork.ideafork.core.api.config;
 
-import at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat;
-
 import javax.enterprise.inject.Typed;
 import java.util.ResourceBundle;
 
@@ -9,7 +7,6 @@ import java.util.ResourceBundle;
 public class ApplicationConfig {
     private String applicationName;
     private ApplicationVersion applicationVersion; //just to illustrate a type-safe part as well
-    private ExternalFormat.TargetFormat defaultExternalFormat;
     private int methodInvocationThreshold;
     private int maxNumberOfHighestRatedCategories;
 
@@ -20,7 +17,6 @@ public class ApplicationConfig {
     public ApplicationConfig(ResourceBundle config) {
         this.applicationName = config.getString("name");
         this.applicationVersion = new ApplicationVersion(config.getString("version"));
-        this.defaultExternalFormat = ExternalFormat.TargetFormat.valueOf(config.getString("defaultExternalFormat"));
         this.methodInvocationThreshold = Integer.parseInt(config.getString("methodInvocationThreshold"));
         this.maxNumberOfHighestRatedCategories = Integer.parseInt(config.getString("maxNumberOfHighestRatedCategories"));
     }
@@ -31,10 +27,6 @@ public class ApplicationConfig {
 
     public ApplicationVersion getApplicationVersion() {
         return applicationVersion;
-    }
-
-    public ExternalFormat.TargetFormat getDefaultExternalFormat() {
-        return defaultExternalFormat;
     }
 
     public int getMethodInvocationThreshold() {
