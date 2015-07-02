@@ -1,6 +1,8 @@
 package at.irian.cdiatwork.ideafork.core.impl.logging;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaChangedEvent;
+import org.apache.deltaspike.core.api.exclude.Exclude;
+import org.apache.deltaspike.core.api.projectstage.ProjectStage;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -9,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @ApplicationScoped
+@Exclude(exceptIfProjectStage = {ProjectStage.Development.class, ProjectStage.UnitTest.class})
 public class IdeaSavedObserver {
     private static final Logger LOGGER = Logger.getLogger(IdeaSavedObserver.class.getName());
 
