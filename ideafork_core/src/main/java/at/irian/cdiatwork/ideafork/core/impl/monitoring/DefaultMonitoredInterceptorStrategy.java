@@ -1,6 +1,5 @@
 package at.irian.cdiatwork.ideafork.core.impl.monitoring;
 
-import at.irian.cdiatwork.ideafork.core.api.config.ApplicationConfig;
 import at.irian.cdiatwork.ideafork.core.api.monitoring.Monitored;
 
 import javax.enterprise.context.Dependent;
@@ -17,7 +16,7 @@ public class DefaultMonitoredInterceptorStrategy implements MonitoredInterceptor
     private MonitoredStorage monitoredStorage;
 
     @Inject
-    private ApplicationConfig applicationConfig;
+    private MonitoringConfig monitoringConfig;
 
     @Inject
     private BeanManager beanManager;
@@ -33,7 +32,7 @@ public class DefaultMonitoredInterceptorStrategy implements MonitoredInterceptor
             int maxThreshold = monitored.maxThreshold();
 
             if (maxThreshold < 1) {
-                maxThreshold = this.applicationConfig.getMethodInvocationThreshold();
+                maxThreshold = this.monitoringConfig.getMethodInvocationThreshold();
             }
 
             if (isSlowInvocation(start, maxThreshold)) {
