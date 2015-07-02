@@ -13,6 +13,7 @@
     <version>1.0.0</version>
 
     <properties>
+        <ds.version>1.6.1</ds.version>
         <myfaces-core.version>2.1.14</myfaces-core.version>
         <tomee-api.version>6.0-6</tomee-api.version>
     </properties>
@@ -63,6 +64,18 @@
             <artifactId>relative-resource-handler</artifactId>
             <version>0.9.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-api</artifactId>
+            <version>${ds.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-impl</artifactId>
+            <version>${ds.version}</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -91,6 +104,11 @@
                     <groupId>at.irian.cdiatwork</groupId>
                     <artifactId>ideafork-core</artifactId>
                     <version>${project.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.deltaspike.cdictrl</groupId>
+                    <artifactId>deltaspike-cdictrl-openejb</artifactId>
+                    <version>${ds.version}</version>
                 </dependency>
             </dependencies>
             <build>
@@ -170,6 +188,12 @@
                     <groupId>com.fasterxml.jackson.dataformat</groupId>
                     <artifactId>jackson-dataformat-xml</artifactId>
                     <version>2.3.0</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.deltaspike.cdictrl</groupId>
+                    <artifactId>deltaspike-cdictrl-weld</artifactId>
+                    <version>${ds.version}</version>
                 </dependency>
             </dependencies>
             <build>
@@ -277,6 +301,12 @@
                     <groupId>com.fasterxml.jackson.dataformat</groupId>
                     <artifactId>jackson-dataformat-xml</artifactId>
                     <version>2.3.0</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.deltaspike.cdictrl</groupId>
+                    <artifactId>deltaspike-cdictrl-weld</artifactId>
+                    <version>${ds.version}</version>
                 </dependency>
             </dependencies>
             <build>
