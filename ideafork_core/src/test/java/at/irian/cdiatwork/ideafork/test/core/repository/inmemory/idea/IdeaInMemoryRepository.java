@@ -1,6 +1,6 @@
 package at.irian.cdiatwork.ideafork.test.core.repository.inmemory.idea;
 
-import at.irian.cdiatwork.ideafork.core.api.config.ApplicationConfig;
+import at.irian.cdiatwork.ideafork.core.api.config.MaxNumberOfHighestRatedCategories;
 import at.irian.cdiatwork.ideafork.core.api.data.view.CategoryView;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
@@ -21,8 +21,8 @@ public class IdeaInMemoryRepository extends GenericInMemoryRepository<Idea> impl
     }
 
     @Inject
-    protected IdeaInMemoryRepository(ApplicationConfig config) {
-        this.maxNumberOfHighestRatedCategories = config.getMaxNumberOfHighestRatedCategories();
+    protected IdeaInMemoryRepository(@MaxNumberOfHighestRatedCategories Integer maxNumberOfHighestRatedCategories) {
+        this.maxNumberOfHighestRatedCategories = maxNumberOfHighestRatedCategories;
     }
 
     @Override

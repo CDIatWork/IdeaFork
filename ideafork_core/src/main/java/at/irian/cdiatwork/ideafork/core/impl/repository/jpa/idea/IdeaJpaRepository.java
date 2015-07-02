@@ -1,6 +1,6 @@
 package at.irian.cdiatwork.ideafork.core.impl.repository.jpa.idea;
 
-import at.irian.cdiatwork.ideafork.core.api.config.ApplicationConfig;
+import at.irian.cdiatwork.ideafork.core.api.config.MaxNumberOfHighestRatedCategories;
 import at.irian.cdiatwork.ideafork.core.api.data.view.CategoryView;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
@@ -15,15 +15,9 @@ import java.util.*;
 public class IdeaJpaRepository extends GenericJpaRepository<Idea> implements IdeaRepository {
     private static final long serialVersionUID = -2577028101342086615L;
 
-    private int maxNumberOfHighestRatedCategories;
-
-    protected IdeaJpaRepository() {
-    }
-
     @Inject
-    protected IdeaJpaRepository(ApplicationConfig config) {
-        this.maxNumberOfHighestRatedCategories = config.getMaxNumberOfHighestRatedCategories();
-    }
+    @MaxNumberOfHighestRatedCategories
+    private Integer maxNumberOfHighestRatedCategories;
 
     @Override
     public List<Idea> loadAllOfAuthor(User author) {

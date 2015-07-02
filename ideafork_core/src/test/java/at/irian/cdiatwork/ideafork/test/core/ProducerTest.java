@@ -1,6 +1,6 @@
 package at.irian.cdiatwork.ideafork.test.core;
 
-import at.irian.cdiatwork.ideafork.core.api.config.ApplicationConfig;
+import at.irian.cdiatwork.ideafork.core.api.config.ApplicationName;
 import at.irian.cdiatwork.ideafork.core.api.converter.ObjectConverter;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Assert;
@@ -13,16 +13,17 @@ import javax.inject.Inject;
 public class ProducerTest {
 
     @Inject
-    private ApplicationConfig applicationConfig;
+    @ApplicationName
+    private String applicationName;
 
     @Inject
     private ObjectConverter objectConverter;
 
     @Test
     public void producedBeans() {
-        Assert.assertNotNull(applicationConfig);
+        Assert.assertNotNull(applicationName);
         Assert.assertNotNull(objectConverter);
 
-        Assert.assertEquals("IdeaFork", applicationConfig.getApplicationName());
+        Assert.assertEquals("IdeaFork", applicationName);
     }
 }

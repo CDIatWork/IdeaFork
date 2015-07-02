@@ -1,29 +1,38 @@
 package at.irian.cdiatwork.ideafork.core.impl.config;
 
-import at.irian.cdiatwork.ideafork.core.api.config.ApplicationConfig;
+import at.irian.cdiatwork.ideafork.core.api.config.ApplicationName;
+import at.irian.cdiatwork.ideafork.core.api.config.ApplicationVersion;
+import at.irian.cdiatwork.ideafork.core.api.config.MaxNumberOfHighestRatedCategories;
+import org.apache.deltaspike.core.api.config.ConfigResolver;
+import org.apache.deltaspike.core.spi.config.BaseConfigPropertyProducer;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
-import java.util.ResourceBundle;
-import java.util.logging.Logger;
+import javax.enterprise.inject.spi.InjectionPoint;
 
 @ApplicationScoped
-public class ConfigProducer {
-    private static final Logger LOGGER = Logger.getLogger(ConfigProducer.class.getName());
+public class ConfigProducer extends BaseConfigPropertyProducer {
+    @Produces
+    @ApplicationName
+    public String applicationName(InjectionPoint injectionPoint) {
+        return getStringPropertyValue(injectionPoint);
+    }
 
     @Produces
-    @ApplicationScoped
-    public ApplicationConfig exposeConfig() {
-        ResourceBundle config = ResourceBundle.getBundle(getConfigBaseName());
-        return new ApplicationConfig(config);
+    public ApplicationVersion applicationVersion() {
+        String configuredValue = ConfigResolver.getPropertyValue("version");
+        return new ApplicationVersion(configuredValue);
     }
 
-    protected String getConfigBaseName() {
-        return "app-config";
-    }
+    @Produces
+    @MaxNumberOfHighestRatedCategories
+    public Integer maxNumberOfHighestRatedCategories(InjectionPoint injectionPoint) {
+        String configuredValue = getStringPropertyValue(injectionPoint);
 
-    public void onDispose(@Disposes ApplicationConfig applicationConfig) {
-        LOGGER.info("shutting down " + applicationConfig.getApplicationName() + " v" + applicationConfig.getApplicationVersion());
+        if (configuredValue == null || configuredValue.length() == 0) {
+            return getAnnotation(injectionPoint, MaxNumberOfHighestRatedCategories.class).defaultValue();
+        }
+
+        return Integer.parseInt(configuredValue);
     }
 }
