@@ -1,6 +1,7 @@
 package at.irian.cdiatwork.ideafork.core.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.deltaspike.core.api.exclude.Exclude;
 
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -9,6 +10,7 @@ import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.UUID;
 
+@Exclude
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = -7764878761692675990L;
