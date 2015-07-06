@@ -4,6 +4,7 @@ import at.irian.cdiatwork.ideafork.ee.backend.service.IdeaService;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.ViewController;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
+import org.apache.deltaspike.core.api.config.view.controller.PreRenderView;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -19,6 +20,7 @@ public class IdeaListViewCtrl implements Serializable {
 
     private List<Idea> ideaList;
 
+    @PreRenderView
     public void onPreRenderView() {
         ideaList = ideaService.loadAllOfAuthor(userHolder.getAuthenticatedUser());
     }

@@ -2,6 +2,7 @@ package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller;
 
 import at.irian.cdiatwork.ideafork.core.api.data.view.CategoryView;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
+import org.apache.deltaspike.core.api.config.view.controller.PreRenderView;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ public class IndexViewCtrl implements Serializable {
     private List<CategoryView> categories;
     private int categoryCount;
 
+    @PreRenderView
     public void onPreRenderView() {
         categories = ideaManager.getHighestRatedCategories();
         categoryCount = categories.size();

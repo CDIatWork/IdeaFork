@@ -1,8 +1,11 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config;
 
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.IndexViewCtrl;
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.idea.IdeaListViewCtrl;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.security.UserAwareAccessDecisionVoter;
 import org.apache.deltaspike.core.api.config.view.DefaultErrorView;
 import org.apache.deltaspike.core.api.config.view.ViewConfig;
+import org.apache.deltaspike.core.api.config.view.controller.ViewControllerRef;
 import org.apache.deltaspike.jsf.api.config.view.View;
 import org.apache.deltaspike.security.api.authorization.Secured;
 
@@ -10,6 +13,7 @@ import static org.apache.deltaspike.jsf.api.config.view.View.NavigationMode.REDI
 
 @View(navigation = REDIRECT)
 public interface Pages extends ViewConfig {
+    @ViewControllerRef(IndexViewCtrl.class)
     class Index implements Pages {}
 
     @Secured(UserAwareAccessDecisionVoter.class)
@@ -29,6 +33,7 @@ public interface Pages extends ViewConfig {
         class Create implements Idea {}
         class Edit implements Idea {}
 
+        @ViewControllerRef(IdeaListViewCtrl.class)
         class List implements Idea {}
         class Details implements Idea {}
     }
