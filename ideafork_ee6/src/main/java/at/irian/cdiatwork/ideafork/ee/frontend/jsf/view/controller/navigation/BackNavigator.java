@@ -1,5 +1,6 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.navigation;
 
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.EntryPointNavigationEvent;
 import org.apache.deltaspike.core.api.config.view.ViewConfig;
 import org.apache.deltaspike.core.api.config.view.navigation.event.PreViewConfigNavigateEvent;
 import org.apache.deltaspike.core.api.lifecycle.Destroyed;
@@ -30,11 +31,12 @@ public class BackNavigator implements Serializable {
         if (previousView != null && !this.backNavigationActive &&
             (previousViewStack.isEmpty() || !previousViewStack.peek().equals(previousView))) {
             previousViewStack.push(previousView);
-
-            if (previousViewStack.size() > 10) {
-                previousViewStack.remove(0);
-            }
         }
+    }
+
+    protected void onEntryPointNavigation(@Observes EntryPointNavigationEvent entryPointNavigationEvent) {
+        this.previousViewStack.clear();
+        this.previousViewStack.push(entryPointNavigationEvent.getView());
     }
 
     protected void onFacesRequestEnd(@Observes(notifyObserver = IF_EXISTS) @Destroyed FacesContext facesContext) {

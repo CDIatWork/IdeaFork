@@ -20,14 +20,17 @@ public interface Pages extends ViewConfig {
     interface SecuredPages extends Pages {}
 
     interface User extends Pages {
+        @EntryPoint
         class Login extends DefaultErrorView {}
 
+        @EntryPoint
         class Registration implements User {}
 
         class Profile implements SecuredPages {}
     }
 
     interface Idea extends SecuredPages {
+        @EntryPoint
         class Overview implements Idea {}
 
         class Create implements Idea {}
