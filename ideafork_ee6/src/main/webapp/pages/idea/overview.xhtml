@@ -24,6 +24,12 @@
             <span class="glyphicon glyphicon-import"/> Export My Ideas
         </a>
 
+        <h:commandLink id="lnkIdeaPromotion" styleClass="btn" action="#{navigationController.toIdeaPromotionWizard}">
+            <span class="glyphicon glyphicon-bullhorn"/> Request Idea Promotion
+        </h:commandLink>
+        <h:commandLink id="lnkFindIdeasToPromote" styleClass="btn" action="#{navigationController.toPromoteableIdeaList}">
+            <span class="glyphicon glyphicon-thumbs-up"/> Promote Ideas
+        </h:commandLink>
         <h:commandLink id="lnkUserProfile" styleClass="btn" action="#{navigationController.toUserProfile}">
             <span class="glyphicon glyphicon-user"/> Show My Profile
         </h:commandLink>

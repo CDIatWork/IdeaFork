@@ -38,6 +38,23 @@
                     </div>
                 </div>
             </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="list-group" rendered="#{activeUserHolder.loggedIn and indexViewCtrl.promotedIdeaCount gt 0}">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-share-alt"/> Promoted ideas</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>Fork a promoted idea:</p>
+                    </div>
+                    <div class="list-group">
+                        <ui:repeat var="promotedIdea" value="#{indexViewCtrl.promotedIdeas}">
+                            <h:commandLink action="#{ideaEditViewCtrl.editIdea(promotedIdea)}" styleClass="list-group-item">
+                                #{promotedIdea.topic}
+                            </h:commandLink>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </h:panelGroup>
         </h:form>
 
         <div class="alert alert-warning alert-dismissable">

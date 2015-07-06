@@ -6,6 +6,7 @@ import org.apache.deltaspike.core.api.config.view.ViewConfig;
 import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigDescriptor;
 import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigResolver;
 import org.apache.deltaspike.core.api.scope.WindowScoped;
+import org.apache.deltaspike.core.spi.scope.conversation.GroupedConversationManager;
 import org.apache.deltaspike.jsf.api.listener.phase.BeforePhase;
 import org.apache.deltaspike.jsf.api.listener.phase.JsfPhaseId;
 
@@ -22,6 +23,9 @@ public class EntryPointHandler implements Serializable {
 
     @Inject
     private ViewConfigResolver viewConfigResolver;
+
+    @Inject
+    private GroupedConversationManager conversationManager;
 
     @Inject
     private Event<EntryPointNavigationEvent> entryPointEvent;
@@ -45,6 +49,7 @@ public class EntryPointHandler implements Serializable {
 
         if (!viewConfigDescriptor.getMetaData(EntryPoint.class).isEmpty()) {
             this.previousEntryPoint = viewConfigDescriptor.getConfigClass();
+            this.conversationManager.closeConversations();
             this.entryPointEvent.fire(new EntryPointNavigationEvent(viewConfigDescriptor.getConfigClass()));
         }
     }

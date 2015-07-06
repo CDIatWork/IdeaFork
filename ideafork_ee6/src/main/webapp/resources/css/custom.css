@@ -9,3 +9,11 @@
 .panel {
     background: #fafafa !important;
 }
+
+.selectedPromotionTableRow {
+    background-color: lightblue;
+}
+
+.wizardLink {
+    padding-right: 10px;
+}

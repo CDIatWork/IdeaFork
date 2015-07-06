@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:my="http://java.sun.com/jsf/composite/custom"
+                template="/templates/main-template.xhtml">
+
+    <ui:define name="panel-title">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-share-alt"/> Request Idea Promotion - Step 2</h3>
+    </ui:define>
+
+    <ui:define name="content">
+        <my:formGroup base="#{promotionWizardCtrl.promotionRequest}" property="description" label="Description for promotion" multiline="true"/>
+
+        <h:commandLink value="Back" action="#{backNavigator.toPreviousView}" styleClass="wizardLink"/>
+        <h:commandLink value="Next" action="#{promotionWizardCtrl.showConfirmation}" styleClass="wizardLink"/>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:my="http://java.sun.com/jsf/composite/custom"
+                template="/templates/main-template.xhtml">
+
+    <ui:define name="pageMetadata">
+        <f:metadata>
+            <f:viewParam name="searchHint" value="#{promotionRequestListViewCtrl.searchHint}" />
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="panel-title">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-icon-thumbs-up"/> Idea Promotion - Select</h3>
+    </ui:define>
+
+    <ui:define name="content">
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+
+        <h:outputScript library="js" name="jquery.min.js" target="head"/>
+        <h:outputScript library="js" name="bootstrap.min.js" target="head"/>
+
+        <my:formGroup base="#{promotionRequestListViewCtrl}" property="searchHint" label="Filter"/>
+        <h:commandButton class="btn btn-default" value="Apply"
+                         action="#{promotionRequestListViewCtrl.applyFilter}"/>
+
+        <h:dataTable var="promotionRequest" value="#{promotionRequestListViewCtrl.foundPromotionRequests}" styleClass="table">
+            <h:column>
+                <f:facet name="header">
+                    Topic
+                </f:facet>
+                #{promotionRequest.ideaForPromotion.topic}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Category
+                </f:facet>
+                #{promotionRequest.ideaForPromotion.category}
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    Description
+                </f:facet>
+                #{promotionRequest.ideaForPromotion.description}
+            </h:column>
+            <h:column>
+                <a href="#" data-toggle="tooltip" data-placement="bottom" data-original-title="#{promotionRequest.description}" class="btn">
+                    <span class="glyphicon glyphicon-bullhorn"/>
+                </a>
+                <h:commandLink id="lnkPromote" styleClass="btn" action="#{promotionRequestSelectionViewCtrl.showPromotionRequest(promotionRequest)}">
+                    <span class="glyphicon glyphicon-thumbs-up"/>
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
+    </ui:define>
+</ui:composition>

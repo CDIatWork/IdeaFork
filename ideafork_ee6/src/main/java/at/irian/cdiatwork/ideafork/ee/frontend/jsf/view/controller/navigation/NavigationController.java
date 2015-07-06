@@ -23,4 +23,12 @@ public class NavigationController {
     public Class<? extends Pages.SecuredPages> toUserProfile() {
         return Pages.User.Profile.class;
     }
+
+    public Class<? extends Pages.PromotionWizard> toIdeaPromotionWizard() {
+        return Pages.PromotionWizard.Step1.class;
+    }
+
+    public Class<? extends Pages.PromotionSelectionArea> toPromoteableIdeaList() {
+        return Pages.PromotionSelectionArea.ListPromotions.class;
+    }
 }
