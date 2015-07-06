@@ -3,6 +3,9 @@ package at.irian.cdiatwork.ideafork.ee.frontend.jsf.message;
 import org.apache.deltaspike.core.api.message.MessageBundle;
 import org.apache.deltaspike.core.api.message.MessageTemplate;
 
+import javax.inject.Named;
+
+@Named
 @MessageBundle
 public interface UserMessage {
     @MessageTemplate("Welcome %s!")
@@ -19,4 +22,7 @@ public interface UserMessage {
 
     @MessageTemplate("Registration failed!")
     String registrationFailed();
+
+    @MessageTemplate("Warning!")
+    String warning();
 }
