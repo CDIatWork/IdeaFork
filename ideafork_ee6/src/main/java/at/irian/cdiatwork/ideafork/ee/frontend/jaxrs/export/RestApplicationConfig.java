@@ -1,6 +1,6 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jaxrs.export;
 
-import at.irian.cdiatwork.ideafork.core.api.util.CdiUtils;
+import org.apache.deltaspike.core.api.provider.BeanProvider;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -30,7 +30,7 @@ public class RestApplicationConfig extends Application {
          * it looks portable, but it isn't.
          */
 
-        CdiUtils.injectFields(jsonWriter);
+        BeanProvider.injectFields(jsonWriter);
         singletons = new HashSet<Object>() {{
             add(jsonWriter);
         }};

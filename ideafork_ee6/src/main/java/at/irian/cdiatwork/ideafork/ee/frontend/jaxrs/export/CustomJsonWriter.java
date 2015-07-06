@@ -3,8 +3,8 @@ package at.irian.cdiatwork.ideafork.ee.frontend.jaxrs.export;
 import at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.core.api.converter.ObjectConverter;
 import at.irian.cdiatwork.ideafork.core.api.data.view.ExportView;
-import at.irian.cdiatwork.ideafork.core.api.util.CdiUtils;
 import org.apache.deltaspike.core.api.exception.control.event.ExceptionToCatchEvent;
+import org.apache.deltaspike.core.api.provider.BeanProvider;
 
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
@@ -66,7 +66,7 @@ public class CustomJsonWriter implements MessageBodyWriter<Object> {
 
     private synchronized void init() {
         if (objectConverter == null) {
-            CdiUtils.injectFields(this);
+            BeanProvider.injectFields(this);
         }
     }
 }

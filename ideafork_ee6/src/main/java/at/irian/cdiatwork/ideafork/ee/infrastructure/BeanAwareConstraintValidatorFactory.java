@@ -1,6 +1,6 @@
 package at.irian.cdiatwork.ideafork.ee.infrastructure;
 
-import at.irian.cdiatwork.ideafork.core.api.util.CdiUtils;
+import org.apache.deltaspike.core.api.provider.BeanProvider;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorFactory;
@@ -15,7 +15,7 @@ public class BeanAwareConstraintValidatorFactory implements ConstraintValidatorF
 
     @Override
     public <T extends ConstraintValidator<?, ?>> T getInstance(Class<T> validatorClass) {
-        T managedConstraintValidator = CdiUtils.getContextualReference(validatorClass);
+        T managedConstraintValidator = BeanProvider.getContextualReference(validatorClass, true);
         if (managedConstraintValidator == null) {
             managedConstraintValidator = this.defaultFactory.getInstance(validatorClass);
         }

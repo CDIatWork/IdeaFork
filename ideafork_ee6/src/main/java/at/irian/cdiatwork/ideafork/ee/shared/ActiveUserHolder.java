@@ -3,10 +3,16 @@ package at.irian.cdiatwork.ideafork.ee.shared;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.core.api.domain.statistic.UserAction;
 import at.irian.cdiatwork.ideafork.core.api.domain.statistic.UserActionEvent;
+import org.apache.deltaspike.cdise.api.ContextControl;
+import org.apache.deltaspike.core.api.provider.BeanManagerProvider;
+import org.apache.deltaspike.core.api.provider.BeanProvider;
+import org.apache.deltaspike.core.api.provider.DependentProvider;
 
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -54,7 +60,17 @@ public class ActiveUserHolder implements Serializable {
         if (manualLogout) {
             userActionEvent.fire(new UserActionEvent(new UserAction(LOGOUT, user)));
         } else {
-            userActionEvent.fire(new UserActionEvent(new UserAction(AUTO_LOGOUT, user)));
+            //won't work in glassfish 3 due to GLASSFISH-19668
+
+            BeanManager beanManager = BeanManagerProvider.getInstance().getBeanManager();
+            DependentProvider<ContextControl> contextControlProvider = BeanProvider.getDependent(beanManager, ContextControl.class);
+            try {
+                contextControlProvider.get().startContext(RequestScoped.class);
+                userActionEvent.fire(new UserActionEvent(new UserAction(AUTO_LOGOUT, user)));
+            } finally {
+                contextControlProvider.get().stopContext(RequestScoped.class);
+                contextControlProvider.destroy();
+            }
         }
     }
 }

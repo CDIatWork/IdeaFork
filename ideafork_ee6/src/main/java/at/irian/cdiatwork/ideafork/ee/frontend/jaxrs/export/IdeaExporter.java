@@ -4,8 +4,8 @@ import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.UserManager;
-import at.irian.cdiatwork.ideafork.core.api.util.CdiUtils;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
+import org.apache.deltaspike.core.api.provider.BeanProvider;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -80,7 +80,7 @@ public class IdeaExporter {
 
     private synchronized void init() {
         if (ideaManager == null) {
-            CdiUtils.injectFields(this);
+            BeanProvider.injectFields(this);
         }
     }
 }

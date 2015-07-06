@@ -7,22 +7,19 @@ import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.UserManager;
+import org.apache.deltaspike.core.api.provider.BeanProvider;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.inject.AmbiguousResolutionException;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.UnsatisfiedResolutionException;
-import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
-
-import java.util.Set;
 
 import static at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat.TargetFormat.CSV;
 import static at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat.TargetFormat.JSON;
@@ -54,15 +51,8 @@ public class LookupTest {
 
     @Before
     public void init() {
-        Set<Bean<?>> imBeans = beanManager.getBeans(IdeaManager.class);
-        Bean<?> imBean = beanManager.resolve(imBeans);
-        CreationalContext<?> imCreationalContext = beanManager.createCreationalContext(imBean);
-        this.ideaManager = (IdeaManager)this.beanManager.getReference(imBean, IdeaManager.class, imCreationalContext);
-
-        Set<Bean<?>> umBeans = beanManager.getBeans(UserManager.class);
-        Bean<?> umBean = beanManager.resolve(umBeans);
-        CreationalContext<?> umCreationalContext = beanManager.createCreationalContext(umBean);
-        this.userManager = (UserManager)this.beanManager.getReference(umBean, UserManager.class, umCreationalContext);
+        this.ideaManager = BeanProvider.getContextualReference(IdeaManager.class);
+        this.userManager = BeanProvider.getContextualReference(UserManager.class);
     }
 
     @Test
@@ -92,11 +82,7 @@ public class LookupTest {
 
         String xmlString = converterInstance.select(new ExternalFormatLiteral(XML)).get().toString(exportedIdea);
 
-        Set<Bean<?>> beans = beanManager.getBeans(ObjectConverter.class, new ExternalFormatLiteral(XML));
-        Bean<?> bean = beanManager.resolve(beans);
-        CreationalContext<?> creationalContext = beanManager.createCreationalContext(bean);
-
-        ObjectConverter xmlConverter = (ObjectConverter)this.beanManager.getReference(bean, ObjectConverter.class, creationalContext);
+        ObjectConverter xmlConverter = BeanProvider.getContextualReference(ObjectConverter.class);
         Idea importedIdea = xmlConverter.toObject(xmlString, Idea.class);
 
         Assert.assertTrue(exportedIdea.equals(importedIdea));
