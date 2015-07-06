@@ -2,6 +2,7 @@ package at.irian.cdiatwork.ideafork.core.impl.repository.jpa;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.BaseEntity;
 import at.irian.cdiatwork.ideafork.core.api.repository.GenericRepository;
+import org.apache.deltaspike.core.util.ProxyUtils;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -51,11 +52,7 @@ public abstract class GenericJpaRepository<T extends BaseEntity> implements Gene
     }
 
     private Class<? extends BaseEntity> detectConcreteEntityType() {
-        Class currentClass = getClass();
-
-        if (currentClass.getName().contains("$$")) { //we are in a proxy
-            currentClass = currentClass.getSuperclass();
-        }
+        Class currentClass = ProxyUtils.getUnproxiedClass(getClass());
 
         for (Type interfaceClass : currentClass.getGenericInterfaces()) {
             for (Type genericInterfaceClass : ((Class) interfaceClass).getGenericInterfaces()) {
