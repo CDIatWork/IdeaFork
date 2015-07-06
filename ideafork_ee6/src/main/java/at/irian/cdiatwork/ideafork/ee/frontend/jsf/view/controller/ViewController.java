@@ -1,6 +1,7 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller;
 
-import javax.enterprise.context.RequestScoped;
+import org.apache.deltaspike.core.api.scope.ViewAccessScoped;
+
 import javax.enterprise.inject.Stereotype;
 import javax.inject.Named;
 import java.lang.annotation.Retention;
@@ -14,8 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Stereotype
 
-//like @Model
-@RequestScoped
+@ViewAccessScoped
 @Named
 public @interface ViewController {
 }

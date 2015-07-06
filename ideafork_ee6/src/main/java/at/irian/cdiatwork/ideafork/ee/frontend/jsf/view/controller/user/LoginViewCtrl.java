@@ -8,9 +8,10 @@ import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.ViewControlle
 import org.apache.deltaspike.jsf.api.message.JsfMessage;
 
 import javax.inject.Inject;
+import java.io.Serializable;
 
 @ViewController
-public class LoginViewCtrl {
+public class LoginViewCtrl implements Serializable {
     @Inject
     private UserService userService;
 

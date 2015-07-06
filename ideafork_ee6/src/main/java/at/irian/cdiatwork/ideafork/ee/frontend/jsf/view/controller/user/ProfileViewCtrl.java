@@ -7,10 +7,11 @@ import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
 @ViewController
-public class ProfileViewCtrl {
+public class ProfileViewCtrl implements Serializable {
     @Inject
     private StatisticService statisticService;
 

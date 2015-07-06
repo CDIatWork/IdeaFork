@@ -5,12 +5,10 @@ import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.ViewController;
 
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.Stack;
 
-@SessionScoped
 @ViewController
 public class IdeaDetailsViewCtrl implements Serializable {
     @Inject

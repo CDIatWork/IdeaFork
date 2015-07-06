@@ -9,9 +9,10 @@ import org.apache.deltaspike.core.api.config.view.ViewConfig;
 import org.apache.deltaspike.jsf.api.message.JsfMessage;
 
 import javax.inject.Inject;
+import java.io.Serializable;
 
 @ViewController
-public class RegistrationViewCtrl {
+public class RegistrationViewCtrl implements Serializable {
     @Inject
     private UserService userService;
 
