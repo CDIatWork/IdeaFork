@@ -1,7 +1,10 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.servlet;
 
 import at.irian.cdiatwork.ideafork.ee.backend.service.FileUploadService;
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
+import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigDescriptor;
+import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigResolver;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -21,8 +24,13 @@ public class IdeaImportServlet extends HttpServlet {
     @Inject
     private FileUploadService fileUploadService;
 
+    @Inject
+    private ViewConfigResolver viewConfigResolver;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         fileUploadService.storeUploadedFiles(request.getParts(), userHolder.getAuthenticatedUser());
-        request.getRequestDispatcher("/pages/import/summary.xhtml").forward(request, response);
+
+        ViewConfigDescriptor viewConfigDescriptor = viewConfigResolver.getViewConfigDescriptor(Pages.Import.Summary.class);
+        request.getRequestDispatcher(viewConfigDescriptor.getViewId()).forward(request, response);
     }
 }

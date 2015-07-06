@@ -4,7 +4,10 @@ import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.UserManager;
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
+import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigDescriptor;
+import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigResolver;
 import org.apache.deltaspike.core.api.provider.BeanProvider;
 
 import javax.inject.Inject;
@@ -38,6 +41,9 @@ public class IdeaExporter {
     @Context
     private HttpServletResponse response;
 
+    @Inject
+    private ViewConfigResolver viewConfigResolver;
+
     @GET
     @Path("/export/all")
     public Response allIdeasOfCurrentUser() {
@@ -47,7 +53,8 @@ public class IdeaExporter {
 
         if (authenticatedUser == null) {
             try {
-                return Response.temporaryRedirect(UriBuilder.fromPath("../pages/user/login.xhtml").build()).build();
+                ViewConfigDescriptor viewConfigDescriptor = viewConfigResolver.getViewConfigDescriptor(Pages.User.Login.class);
+                return Response.temporaryRedirect(UriBuilder.fromPath(".." + viewConfigDescriptor.getViewId()).build()).build();
             } catch (Exception e) {
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
             }

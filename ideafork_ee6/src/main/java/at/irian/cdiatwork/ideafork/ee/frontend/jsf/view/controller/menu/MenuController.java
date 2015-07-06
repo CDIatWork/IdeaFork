@@ -1,6 +1,8 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.menu;
 
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
+import org.apache.deltaspike.core.api.config.view.ViewConfig;
 
 import javax.enterprise.inject.Model;
 import javax.inject.Inject;
@@ -12,27 +14,27 @@ public class MenuController {
     @Inject
     private ActiveUserHolder userHolder;
 
-    public String home() {
-        return "/pages/index.xhtml";
+    public Class<? extends Pages> home() {
+        return Pages.Index.class;
     }
 
-    public String login() {
-        return "/pages/user/login.xhtml";
+    public Class<Pages.User.Login> login() {
+        return Pages.User.Login.class;
     }
 
-    public String logout() {
+    public Class<? extends ViewConfig> logout() {
         userHolder.setAuthenticatedUser(null);
-        return "/pages/user/login.xhtml";
+        return Pages.User.Login.class;
     }
 
-    public String start() {
+    public Class<? extends ViewConfig> start() {
         if (userHolder.isLoggedIn()) {
-            return "/pages/idea/overview.xhtml";
+            return Pages.Idea.Overview.class;
         }
-        return "/pages/user/login.xhtml";
+        return Pages.User.Login.class;
     }
 
-    public String register() {
-        return "/pages/user/registration.xhtml";
+    public Class<? extends Pages.User> register() {
+        return Pages.User.Registration.class;
     }
 }

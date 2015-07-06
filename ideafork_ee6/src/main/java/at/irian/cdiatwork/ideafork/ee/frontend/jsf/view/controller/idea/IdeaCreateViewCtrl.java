@@ -2,6 +2,7 @@ package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.idea;
 
 import at.irian.cdiatwork.ideafork.ee.backend.service.IdeaService;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.ViewController;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
 
@@ -21,16 +22,16 @@ public class IdeaCreateViewCtrl implements Serializable {
     private String category;
     private String description;
 
-    public String save() {
+    public Class<? extends Pages.Idea> save() {
         Idea ideaToSave = ideaService.createIdeaFor(topic, category, userHolder.getAuthenticatedUser());
         ideaToSave.setDescription(description);
         ideaService.save(ideaToSave);
-        return "/pages/idea/overview.xhtml";
+        return Pages.Idea.Overview.class;
     }
 
-    public String createWith(String category) {
+    public Class<? extends Pages.Idea> createWith(String category) {
         this.category = category;
-        return "/pages/idea/create.xhtml";
+        return Pages.Idea.Create.class;
     }
 
     /*

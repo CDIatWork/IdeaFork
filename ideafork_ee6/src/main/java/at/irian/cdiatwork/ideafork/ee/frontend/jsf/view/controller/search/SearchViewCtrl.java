@@ -2,6 +2,7 @@ package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.search;
 
 import at.irian.cdiatwork.ideafork.ee.backend.service.SearchService;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.ViewController;
 
 import javax.enterprise.context.SessionScoped;
@@ -22,9 +23,9 @@ public class SearchViewCtrl implements Serializable {
 
     private List<Idea> searchResult;
 
-    public String search() {
+    public Class<? extends Pages.Search> search() {
         searchResult = searchService.searchIdea(searchText);
-        return "/pages/search/fork.xhtml";
+        return Pages.Search.Fork.class;
     }
 
     public String getSearchText() {

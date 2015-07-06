@@ -1,24 +1,26 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.navigation;
 
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
 @Named
 @ApplicationScoped
 public class NavigationController {
-    public String toNewIdea() {
-        return "/pages/idea/create.xhtml";
+    public Class<? extends Pages.Idea> toNewIdea() {
+        return Pages.Idea.Create.class;
     }
 
-    public String toIdeaList() {
-        return "/pages/idea/list.xhtml";
+    public Class<? extends Pages.Idea> toIdeaList() {
+        return Pages.Idea.List.class;
     }
 
-    public String toIdeaImport() {
-        return "/pages/import/upload.xhtml";
+    public Class<? extends Pages.Import> toIdeaImport() {
+        return Pages.Import.Upload.class;
     }
 
-    public String toUserProfile() {
-        return "/pages/user/profile.xhtml";
+    public Class<? extends Pages.User> toUserProfile() {
+        return Pages.User.Profile.class;
     }
 }

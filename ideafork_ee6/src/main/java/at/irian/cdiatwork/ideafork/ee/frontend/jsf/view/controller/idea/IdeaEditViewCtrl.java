@@ -2,6 +2,7 @@ package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.idea;
 
 import at.irian.cdiatwork.ideafork.ee.backend.service.IdeaService;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.ViewController;
 
 import javax.enterprise.context.SessionScoped;
@@ -16,14 +17,14 @@ public class IdeaEditViewCtrl implements Serializable {
 
     private Idea currentIdea;
 
-    public String editIdea(Idea currentIdea) {
+    public Class<? extends Pages.Idea> editIdea(Idea currentIdea) {
         this.currentIdea = currentIdea;
-        return "/pages/idea/edit.xhtml";
+        return Pages.Idea.Edit.class;
     }
 
-    public String save() {
+    public Class<? extends Pages.Idea> save() {
         ideaService.save(currentIdea);
-        return "/pages/idea/list.xhtml";
+        return Pages.Idea.List.class;
     }
 
     public Idea getCurrentIdea() {

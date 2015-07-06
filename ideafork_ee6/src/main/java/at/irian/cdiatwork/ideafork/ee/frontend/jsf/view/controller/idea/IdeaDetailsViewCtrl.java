@@ -2,6 +2,7 @@ package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.idea;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.ViewController;
 
 import javax.enterprise.context.SessionScoped;
@@ -19,9 +20,9 @@ public class IdeaDetailsViewCtrl implements Serializable {
 
     private Stack<Idea> displayedIdeas = new Stack<Idea>();
 
-    public String showIdea(Idea currentIdea) {
+    public Class<? extends Pages.Idea> showIdea(Idea currentIdea) {
         this.currentIdea = currentIdea;
-        return "/pages/idea/details.xhtml";
+        return Pages.Idea.Details.class;
     }
 
     public void showOriginal() {
@@ -29,9 +30,9 @@ public class IdeaDetailsViewCtrl implements Serializable {
         currentIdea = ideaManager.loadById(currentIdea.getBaseIdeaId());
     }
 
-    public String back() {
+    public Class<? extends Pages.Idea> back() {
         if (displayedIdeas.empty()) {
-            return "/pages/idea/list.xhtml";
+            return Pages.Idea.List.class;
         }
         currentIdea = displayedIdeas.pop();
         return null;

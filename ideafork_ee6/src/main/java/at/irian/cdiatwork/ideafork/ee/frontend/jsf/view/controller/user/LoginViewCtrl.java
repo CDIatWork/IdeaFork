@@ -1,6 +1,7 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.user;
 
 import at.irian.cdiatwork.ideafork.ee.backend.service.UserService;
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.ViewController;
 
@@ -19,15 +20,15 @@ public class LoginViewCtrl {
     private String email;
     private String password;
 
-    public String login() {
+    public Class<? extends Pages.Idea> login() {
         userService.login(email, password);
 
         final String message;
-        final String navigationTarget;
+        final Class<? extends Pages.Idea> navigationTarget;
         FacesMessage.Severity severity = FacesMessage.SEVERITY_INFO;
         if (userHolder.isLoggedIn()) {
             message = "Welcome " + userHolder.getAuthenticatedUser().getNickName() + "!";
-            navigationTarget = "/pages/idea/overview.xhtml";
+            navigationTarget = Pages.Idea.Overview.class;
         } else {
             message = "Login failed!";
             severity = FacesMessage.SEVERITY_ERROR;
