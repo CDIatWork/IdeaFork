@@ -10,6 +10,7 @@ import org.apache.deltaspike.core.api.config.view.ViewConfig;
 import org.apache.deltaspike.core.api.config.view.controller.ViewControllerRef;
 import org.apache.deltaspike.core.api.config.view.navigation.NavigationParameter;
 import org.apache.deltaspike.core.spi.config.view.ViewConfigNode;
+import org.apache.deltaspike.core.spi.config.view.ViewConfigRoot;
 import org.apache.deltaspike.jsf.api.config.view.Folder;
 import org.apache.deltaspike.jsf.api.config.view.View;
 import org.apache.deltaspike.security.api.authorization.Secured;
@@ -17,6 +18,7 @@ import org.apache.deltaspike.security.api.authorization.Secured;
 import static org.apache.deltaspike.jsf.api.config.view.View.NavigationMode.REDIRECT;
 import static org.apache.deltaspike.jsf.api.config.view.View.ViewParameterMode.INCLUDE;
 
+@ViewConfigRoot(configDescriptorValidators = IdeaForkViewMetaDataValidator.class)
 @View(navigation = REDIRECT)
 public interface Pages extends ViewConfig {
     @ViewControllerRef(IndexViewCtrl.class)
