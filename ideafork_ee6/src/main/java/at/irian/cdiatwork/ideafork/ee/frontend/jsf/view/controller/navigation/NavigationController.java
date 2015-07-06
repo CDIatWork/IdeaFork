@@ -20,7 +20,7 @@ public class NavigationController {
         return Pages.Import.Upload.class;
     }
 
-    public Class<? extends Pages.User> toUserProfile() {
+    public Class<? extends Pages.SecuredPages> toUserProfile() {
         return Pages.User.Profile.class;
     }
 }

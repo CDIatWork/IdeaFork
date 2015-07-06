@@ -1,12 +1,12 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.user;
 
 import at.irian.cdiatwork.ideafork.ee.backend.service.UserService;
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.message.UserMessage;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.ViewController;
+import org.apache.deltaspike.jsf.api.message.JsfMessage;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 @ViewController
@@ -17,25 +17,24 @@ public class LoginViewCtrl {
     @Inject
     private ActiveUserHolder userHolder;
 
+    @Inject
+    private JsfMessage<UserMessage> userMessage;
+
     private String email;
     private String password;
 
     public Class<? extends Pages.Idea> login() {
         userService.login(email, password);
 
-        final String message;
         final Class<? extends Pages.Idea> navigationTarget;
-        FacesMessage.Severity severity = FacesMessage.SEVERITY_INFO;
         if (userHolder.isLoggedIn()) {
-            message = "Welcome " + userHolder.getAuthenticatedUser().getNickName() + "!";
+            userMessage.addInfo().welcomeNewUser(userHolder.getAuthenticatedUser().getNickName());
             navigationTarget = Pages.Idea.Overview.class;
         } else {
-            message = "Login failed!";
-            severity = FacesMessage.SEVERITY_ERROR;
+            userMessage.addError().loginFailed();
             navigationTarget = null;
         }
 
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, message, message));
         return navigationTarget;
     }
 
