@@ -8,7 +8,7 @@
                 <h3 class="panel-title"><span class="glyphicon glyphicon-upload"/> Import Ideas</h3>
             </div>
             <div class="panel-body">
-                <form method="post" enctype="multipart/form-data" action="#{jsf.contextPath}/idea/import">
+                <form method="post" enctype="multipart/form-data" action="#{jsf.contextPath}/idea/import?dswid=#{dsWindowContext.currentWindowId}">
                     <div class="form-group">
                         <input type="file" name="file" data-filename-placement="inside"/><br/>
                         <input type="submit" value="upload" class="btn btn-default" />

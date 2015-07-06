@@ -29,6 +29,11 @@ public class FileUploadService {
     public void storeUploadedFiles(Collection<Part> parts, User user) {
         for (Part part : parts) {
             String fileName = getFileName(part);
+
+            if (fileName == null) { //ignore hidden-field data
+                continue;
+            }
+
             LOG.fine("start importing " + fileName);
             try {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(part.getInputStream(), UTF8));
