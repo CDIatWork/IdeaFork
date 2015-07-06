@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ds="http://deltaspike.apache.org/jsf">
 <ui:insert name="page-events"/>
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -72,6 +73,7 @@
                     <div class="panel-body">
                         <h:form>
                             <ui:insert name="content"/>
+                            <ds:preventDoubleSubmit/>
                         </h:form>
                     </div>
                 </div>
