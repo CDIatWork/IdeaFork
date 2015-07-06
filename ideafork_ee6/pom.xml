@@ -127,6 +127,7 @@
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
+                            <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                         </includes>
                         <excludes>
                             <exclude>persistence.xml</exclude>
@@ -212,6 +213,7 @@
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
+                            <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                         </includes>
                         <excludes>
                             <exclude>persistence.xml</exclude>
@@ -325,6 +327,7 @@
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
+                            <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                         </includes>
                         <excludes>
                             <exclude>persistence.xml</exclude>

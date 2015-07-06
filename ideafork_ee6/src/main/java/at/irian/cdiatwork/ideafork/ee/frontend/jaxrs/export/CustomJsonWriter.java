@@ -4,7 +4,9 @@ import at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.core.api.converter.ObjectConverter;
 import at.irian.cdiatwork.ideafork.core.api.data.view.ExportView;
 import at.irian.cdiatwork.ideafork.core.api.util.CdiUtils;
+import org.apache.deltaspike.core.api.exception.control.event.ExceptionToCatchEvent;
 
+import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -26,6 +28,9 @@ public class CustomJsonWriter implements MessageBodyWriter<Object> {
     @ExternalFormat(JSON)
     private ObjectConverter objectConverter;
 
+    @Inject
+    private BeanManager beanManager;
+
     @Override
     public boolean isWriteable(Class<?> rawType, Type genericType, Annotation[] annotations, MediaType mediaType) {
         return true;
@@ -35,8 +40,13 @@ public class CustomJsonWriter implements MessageBodyWriter<Object> {
     public void writeTo(Object o, Class<?> rawType, Type genericType, Annotation[] annotations,
                         MediaType mediaType, MultivaluedMap<String, Object> httpHeaders, OutputStream entityStream) throws IOException {
         lazyInit();
-        //jackson would support OutputStream, but GSon doesn't
-        entityStream.write(objectConverter.toString(o, ExportView.Public.class).getBytes());
+        try {
+            //jackson would support OutputStream, but GSon doesn't
+            entityStream.write(objectConverter.toString(o, ExportView.Public.class).getBytes());
+        } catch (IOException e) {
+            ExceptionToCatchEvent exceptionToCatchEvent = new ExceptionToCatchEvent(e);
+            beanManager.fireEvent(exceptionToCatchEvent);
+        }
     }
 
     @Override
