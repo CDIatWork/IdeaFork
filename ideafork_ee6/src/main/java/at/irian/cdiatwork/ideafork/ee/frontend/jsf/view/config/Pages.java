@@ -57,6 +57,7 @@ public interface Pages extends ViewConfig {
     }
 
     @Folder(name = "promotion")
+    @Wizard //all wizard-steps inherit this meta-data
     interface PromotionWizard extends SecuredPages {
         @EntryPoint
         @ViewControllerRef(PromotionWizardCtrl.class)

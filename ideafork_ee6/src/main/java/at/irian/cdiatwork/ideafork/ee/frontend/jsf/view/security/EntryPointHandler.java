@@ -2,9 +2,11 @@ package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.security;
 
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.EntryPoint;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.EntryPointNavigationEvent;
+import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Wizard;
 import org.apache.deltaspike.core.api.config.view.ViewConfig;
 import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigDescriptor;
 import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigResolver;
+import org.apache.deltaspike.core.api.config.view.navigation.ViewNavigationHandler;
 import org.apache.deltaspike.core.api.scope.WindowScoped;
 import org.apache.deltaspike.core.spi.scope.conversation.GroupedConversationManager;
 import org.apache.deltaspike.jsf.api.listener.phase.BeforePhase;
@@ -25,12 +27,15 @@ public class EntryPointHandler implements Serializable {
     private ViewConfigResolver viewConfigResolver;
 
     @Inject
+    private ViewNavigationHandler viewNavigationHandler;
+
+    @Inject
     private GroupedConversationManager conversationManager;
 
     @Inject
     private Event<EntryPointNavigationEvent> entryPointEvent;
 
-    protected void checkEntryPoints(@Observes @BeforePhase(JsfPhaseId.RENDER_RESPONSE) PhaseEvent phaseEvent) {
+    protected void checkEntryPointsAndWizardSteps(@Observes @BeforePhase(JsfPhaseId.RENDER_RESPONSE) PhaseEvent phaseEvent) {
         UIViewRoot viewRoot = phaseEvent.getFacesContext().getViewRoot();
 
         if (viewRoot == null) {
@@ -51,6 +56,15 @@ public class EntryPointHandler implements Serializable {
             this.previousEntryPoint = viewConfigDescriptor.getConfigClass();
             this.conversationManager.closeConversations();
             this.entryPointEvent.fire(new EntryPointNavigationEvent(viewConfigDescriptor.getConfigClass()));
+        } else if (!viewConfigDescriptor.getMetaData(Wizard.class).isEmpty()) {
+            //@Wizard doesn't support aggregation -> there can be only one entry
+            Wizard wizard = viewConfigDescriptor.getMetaData(Wizard.class).iterator().next();
+
+            Class<? extends ViewConfig> entryPointOfWizard = wizard.entryPoint();
+
+            if (!entryPointOfWizard.equals(this.previousEntryPoint)) {
+                this.viewNavigationHandler.navigateTo(entryPointOfWizard);
+            }
         }
     }
 }
