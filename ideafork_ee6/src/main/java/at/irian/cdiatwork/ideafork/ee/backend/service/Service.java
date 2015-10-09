@@ -1,8 +1,8 @@
-package at.irian.cdiatwork.ideafork.test.core.repository.inmemory;
+package at.irian.cdiatwork.ideafork.ee.backend.service;
 
-import at.irian.cdiatwork.ideafork.core.impl.repository.Repository;
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 
-import javax.enterprise.inject.Alternative;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Stereotype;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -13,9 +13,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target(TYPE)
 @Retention(RUNTIME)
 
-@Alternative
-
 @Stereotype
-@Repository
-public @interface MockedRepository {
+@ApplicationScoped
+
+@Transactional
+public @interface Service {
 }

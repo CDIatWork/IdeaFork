@@ -5,7 +5,6 @@ import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.ee.frontend.servlet.ImportSummary;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
 import java.io.BufferedReader;
@@ -14,7 +13,7 @@ import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-@Stateless
+@Service
 public class FileUploadService {
     private static final Logger LOG = Logger.getLogger(FileUploadService.class.getName());
 

@@ -11,6 +11,7 @@
 
        <interceptors>
               <class>at.irian.cdiatwork.ideafork.core.impl.monitoring.MonitoredInterceptor</class>
+              <class>org.apache.deltaspike.jpa.impl.transaction.TransactionalInterceptor</class>
        </interceptors>
 
        <decorators>

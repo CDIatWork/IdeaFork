@@ -1,7 +1,7 @@
 package at.irian.cdiatwork.ideafork.core.impl.repository;
 
-
 import at.irian.cdiatwork.ideafork.core.api.monitoring.Monitored;
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Stereotype;
@@ -17,5 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Stereotype
 @ApplicationScoped
 @Monitored
+
+@Transactional
 public @interface Repository {
 }

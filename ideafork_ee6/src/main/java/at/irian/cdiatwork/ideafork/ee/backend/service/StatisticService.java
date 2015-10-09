@@ -5,18 +5,16 @@ import at.irian.cdiatwork.ideafork.core.api.domain.statistic.UserAction;
 import at.irian.cdiatwork.ideafork.core.api.domain.statistic.UserActionEvent;
 import at.irian.cdiatwork.ideafork.core.api.repository.statistic.UserActionRepository;
 
-import javax.ejb.Asynchronous;
-import javax.ejb.Stateless;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import java.util.List;
 
-@Stateless
+@Service
 public class StatisticService {
     @Inject
     private UserActionRepository userActionRepository;
 
-    @Asynchronous
+    //async support will be added back later on
     public void onUserAction(@Observes UserActionEvent userActionEvent) {
         userActionRepository.save(userActionEvent.getUserAction());
     }

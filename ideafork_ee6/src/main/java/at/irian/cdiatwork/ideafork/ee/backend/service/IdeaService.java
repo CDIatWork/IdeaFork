@@ -7,12 +7,11 @@ import at.irian.cdiatwork.ideafork.core.api.domain.promotion.PromotionRequest;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.core.api.repository.promotion.PromotionRepository;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-@Stateless
+@Service
 public class IdeaService {
     @Inject
     private IdeaManager ideaManager;

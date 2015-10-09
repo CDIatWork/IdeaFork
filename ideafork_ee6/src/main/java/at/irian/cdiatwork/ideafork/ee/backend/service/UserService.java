@@ -5,10 +5,9 @@ import at.irian.cdiatwork.ideafork.core.api.domain.role.UserManager;
 import at.irian.cdiatwork.ideafork.core.api.security.PasswordManager;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
 
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-@Stateless
+@Service
 public class UserService {
     @Inject
     private UserManager userManager;
