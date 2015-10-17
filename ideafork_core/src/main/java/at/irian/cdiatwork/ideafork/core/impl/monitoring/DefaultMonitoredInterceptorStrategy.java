@@ -32,7 +32,7 @@ public class DefaultMonitoredInterceptorStrategy implements MonitoredInterceptor
             int maxThreshold = monitored.maxThreshold();
 
             if (maxThreshold < 1) {
-                maxThreshold = this.monitoringConfig.getMethodInvocationThreshold();
+                maxThreshold = this.monitoringConfig.methodInvocationThreshold();
             }
 
             if (isSlowInvocation(start, maxThreshold)) {

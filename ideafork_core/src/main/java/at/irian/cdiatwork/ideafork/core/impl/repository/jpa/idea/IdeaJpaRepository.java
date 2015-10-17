@@ -1,10 +1,10 @@
 package at.irian.cdiatwork.ideafork.core.impl.repository.jpa.idea;
 
-import at.irian.cdiatwork.ideafork.core.api.config.MaxNumberOfHighestRatedCategories;
 import at.irian.cdiatwork.ideafork.core.api.data.view.CategoryView;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.core.api.repository.idea.IdeaRepository;
+import at.irian.cdiatwork.ideafork.core.impl.config.ApplicationConfig;
 import at.irian.cdiatwork.ideafork.core.impl.repository.Repository;
 import at.irian.cdiatwork.ideafork.core.impl.repository.jpa.GenericJpaRepository;
 
@@ -16,8 +16,7 @@ public class IdeaJpaRepository extends GenericJpaRepository<Idea> implements Ide
     private static final long serialVersionUID = -2577028101342086615L;
 
     @Inject
-    @MaxNumberOfHighestRatedCategories
-    private Integer maxNumberOfHighestRatedCategories;
+    private ApplicationConfig applicationConfig;
 
     @Override
     public List<Idea> loadAllOfAuthor(User author) {
@@ -29,7 +28,7 @@ public class IdeaJpaRepository extends GenericJpaRepository<Idea> implements Ide
     @Override
     public List<CategoryView> getHighestRatedCategories() {
         return entityManager.createQuery("select new at.irian.cdiatwork.ideafork.core.api.data.view.CategoryView(i.category, count(i.category)) from Idea i group by i.category order by count(i.category) desc")
-                .setMaxResults(maxNumberOfHighestRatedCategories)
+                .setMaxResults(applicationConfig.maxNumberOfHighestRatedCategories())
                 .getResultList();
     }
 
