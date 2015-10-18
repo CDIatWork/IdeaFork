@@ -9,4 +9,6 @@
     <entity class="at.irian.cdiatwork.ideafork.core.api.domain.change.EntityChange"/>
     <entity class="at.irian.cdiatwork.ideafork.core.api.domain.statistic.UserAction"/>
     <entity class="at.irian.cdiatwork.ideafork.core.api.domain.promotion.PromotionRequest"/>
+
+    <entity class="at.irian.cdiatwork.ideafork.core.api.domain.config.ConfigEntry"/>
 </entity-mappings>

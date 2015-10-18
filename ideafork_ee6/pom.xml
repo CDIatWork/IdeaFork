@@ -142,6 +142,18 @@
             <version>${ds.version}</version>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-data-module-api</artifactId>
+            <version>${ds.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-data-module-impl</artifactId>
+            <version>${ds.version}</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -193,6 +205,7 @@
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
+                            <include>services/org.apache.deltaspike.core.spi.config.ConfigSource</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                         </includes>
                         <excludes>
@@ -279,6 +292,7 @@
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
+                            <include>services/org.apache.deltaspike.core.spi.config.ConfigSource</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                         </includes>
                         <excludes>
@@ -393,6 +407,7 @@
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
+                            <include>services/org.apache.deltaspike.core.spi.config.ConfigSource</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                         </includes>
                         <excludes>
