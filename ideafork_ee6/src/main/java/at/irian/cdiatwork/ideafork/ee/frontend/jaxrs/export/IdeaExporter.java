@@ -6,6 +6,7 @@ import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.UserManager;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
+import org.apache.deltaspike.core.api.common.DeltaSpike;
 import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigDescriptor;
 import org.apache.deltaspike.core.api.config.view.metadata.ViewConfigResolver;
 import org.apache.deltaspike.core.api.provider.BeanProvider;
@@ -38,7 +39,8 @@ public class IdeaExporter {
     @Inject
     private ActiveUserHolder userHolder;
 
-    @Context
+    @Inject
+    @DeltaSpike
     private HttpServletResponse response;
 
     @Inject

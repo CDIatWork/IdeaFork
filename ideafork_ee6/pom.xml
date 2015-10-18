@@ -156,6 +156,18 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-servlet-module-api</artifactId>
+            <version>${ds.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-servlet-module-impl</artifactId>
+            <version>${ds.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.os890.ds.addon</groupId>
             <artifactId>ds-jsf-addon</artifactId>
             <version>1.0.0</version>
