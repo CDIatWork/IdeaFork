@@ -16,6 +16,7 @@
         <ds.version>1.6.1</ds.version>
         <myfaces-core.version>2.1.14</myfaces-core.version>
         <tomee-api.version>6.0-6</tomee-api.version>
+        <owb.version>1.2.8</owb.version>
     </properties>
 
     <repositories>
@@ -183,6 +184,26 @@
             <groupId>org.os890.ds.addon</groupId>
             <artifactId>ds-jsf-addon</artifactId>
             <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-test-control-module-api</artifactId>
+            <version>${ds.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-test-control-module-impl</artifactId>
+            <version>${ds.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -495,6 +516,153 @@
                         <version>2.10</version>
                     </plugin>
                 </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>DeltaSpikeTest</id>
+            <dependencies>
+                <dependency>
+                    <groupId>at.irian.cdiatwork</groupId>
+                    <artifactId>ideafork-core</artifactId>
+                    <version>${project.version}</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.deltaspike.cdictrl</groupId>
+                    <artifactId>deltaspike-cdictrl-owb</artifactId>
+                    <version>${ds.version}</version>
+                </dependency>
+
+                <!-- myfaces 2.2.x is just needed due to the improved test-support -->
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <version>2.2.8</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <version>2.2.8</version>
+                    <scope>test</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.openejb</groupId>
+                    <artifactId>javaee-api</artifactId>
+                    <version>${tomee-api.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-el_2.2_spec</artifactId>
+                    <version>1.0.3</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.openwebbeans</groupId>
+                    <artifactId>openwebbeans-impl</artifactId>
+                    <version>${owb.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.openwebbeans</groupId>
+                    <artifactId>openwebbeans-spi</artifactId>
+                    <version>${owb.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl-test</artifactId>
+                    <version>2.2.8</version>
+                    <scope>test</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.apache.myfaces.test</groupId>
+                    <artifactId>myfaces-test20</artifactId>
+                    <version>1.0.7</version>
+                    <scope>test</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                    <version>1.1.1</version>
+                    <scope>test</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                    <version>4.2.18.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-validator</artifactId>
+                    <version>4.3.2.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>1.4.185</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/META-INF</directory>
+                        <includes>
+                            <include>validation.xml</include>
+                            <include>relative-resources.xml</include>
+                            <include>services/javax.enterprise.inject.spi.Extension</include>
+                            <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
+                        </includes>
+                        <excludes>
+                            <exclude>persistence.xml</exclude>
+                        </excludes>
+                        <targetPath>./META-INF</targetPath>
+                    </resource>
+
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <includes>
+                            <include>**/*properties</include>
+                        </includes>
+                    </resource>
+
+                    <!-- copying from a different location is just needed to use a different file for GlassFish -->
+                    <resource>
+                        <directory>src/main/ee-resources/tomee</directory>
+                        <includes>
+                            <include>beans.xml</include>
+                        </includes>
+                        <targetPath>${project.build.directory}/classes/META-INF</targetPath>
+                    </resource>
+
+                    <resource>
+                        <directory>../ideafork_core/src/test/resources/META-INF/</directory>
+                        <includes>
+                            <include>persistence.xml</include>
+                        </includes>
+                        <targetPath>./META-INF</targetPath>
+                    </resource>
+
+                    <resource>
+                        <directory>../ideafork_core/target/test-classes</directory>
+                        <includes>
+                            <include>**/TestEntityManagerProducer.class</include>
+                            <include>**/TestValidatorProducer.class</include>
+                        </includes>
+                        <targetPath>${project.build.directory}/test-classes</targetPath>
+                    </resource>
+                </resources>
             </build>
         </profile>
     </profiles>
