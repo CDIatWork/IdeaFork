@@ -154,6 +154,12 @@
             <version>${ds.version}</version>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.os890.ds.addon</groupId>
+            <artifactId>ds-jsf-addon</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -205,7 +211,6 @@
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
-                            <include>services/org.apache.deltaspike.core.spi.config.ConfigSource</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                         </includes>
                         <excludes>
@@ -292,7 +297,6 @@
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
-                            <include>services/org.apache.deltaspike.core.spi.config.ConfigSource</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                         </includes>
                         <excludes>
@@ -407,7 +411,6 @@
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
-                            <include>services/org.apache.deltaspike.core.spi.config.ConfigSource</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                         </includes>
                         <excludes>
