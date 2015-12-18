@@ -1,2 +1,3 @@
 at.irian.cdiatwork.ideafork.ee.infrastructure.AppStructureValidationExtension
 at.irian.cdiatwork.ideafork.core.impl.config.context.ConfigContextExtension
+at.irian.cdiatwork.ideafork.core.impl.config.typed.TypedConfigValidationExtension

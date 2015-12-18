@@ -257,6 +257,7 @@
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
+                            <include>services/org.apache.deltaspike.core.spi.config.ConfigValidator</include>
                         </includes>
                         <excludes>
                             <exclude>persistence.xml</exclude>
@@ -343,6 +344,7 @@
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
+                            <include>services/org.apache.deltaspike.core.spi.config.ConfigValidator</include>
                         </includes>
                         <excludes>
                             <exclude>persistence.xml</exclude>
@@ -457,6 +459,7 @@
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
+                            <include>services/org.apache.deltaspike.core.spi.config.ConfigValidator</include>
                         </includes>
                         <excludes>
                             <exclude>persistence.xml</exclude>
@@ -623,6 +626,7 @@
                             <include>relative-resources.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
+                            <include>services/org.apache.deltaspike.core.spi.config.ConfigValidator</include>
                         </includes>
                         <excludes>
                             <exclude>persistence.xml</exclude>
